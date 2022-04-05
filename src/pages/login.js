@@ -1,19 +1,5 @@
-import { Button } from '@nextui-org/react';
-import { useHistory } from 'react-router-dom';
+import Login from '../components/Login/login';
 
-export default function Login() {
-	const history = useHistory();
-	return (
-		<>
-			<Button
-				color={'gradient'}
-				onClick={() => {
-					localStorage.setItem('session', '1');
-					history.push('/');
-				}}
-			>
-				Login
-			</Button>
-		</>
-	);
+export default function LoginPage() {
+	return <Login />;
 }
