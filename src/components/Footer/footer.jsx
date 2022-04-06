@@ -1,203 +1,70 @@
 
 
+
 export default function Footer(){
     return (
         <>
-            <footer id="dk-footer" className="dk-footer">
-        <div className="container">
-            <div className="row">
-                <div className="col-md-12 col-lg-4">
-                    <div className="dk-footer-box-info">
-                        <a href="index.html" className="footer-logo">
-                            <img src="images/footer_logo.png" alt="footer_logo" className="img-fluid" />
-                        </a>
-                        <p className="footer-info-text">
-                           Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.
-                        </p>
-                        <div className="footer-social-link">
-                            <h3>Follow us</h3>
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i className="fa fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i className="fa fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i className="fa fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i className="fa fa-linkedin"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i className="fa fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                    </div>
-                    
-                    <div className="footer-awarad">
-                        <img src="images/icon/best.png" alt=""/>
-                        <p>Best Design Company 2019</p>
-                    </div>
-                </div>
+            <footer className="footer-distributed">
+
+                <div className="footer-left">
+
+                    <h3>Company<span>logo</span></h3>
+
+                    <p className="footer-links">
+                        <a href="#" className="link-1">Home</a>
         
-                <div className="col-md-12 col-lg-8">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="contact-us">
-                                <div className="contact-icon">
-                                    <i className="fa fa-map-o" aria-hidden="true"></i>
-                                </div>
-                                
-                                <div className="contact-info">
-                                    <h3>Jaipur India</h3>
-                                    <p>5353 Road Avenue</p>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-                
-                        <div className="col-md-6">
-                            <div className="contact-us contact-us-last">
-                                <div className="contact-icon">
-                                    <i className="fa fa-volume-control-phone" aria-hidden="true"></i>
-                                </div>
-                                
-                                <div className="contact-info">
-                                    <h3>95 711 9 5353</h3>
-                                    <p>Give us a call</p>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-                
-                    </div>
-                    
-                    <div className="row">
-                        <div className="col-md-12 col-lg-6">
-                            <div className="footer-widget footer-left-widget">
-                                <div className="section-heading">
-                                    <h3>Useful Links</h3>
-                                    <span className="animate-border border-black"></span>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <a href="#">About us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Services</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Projects</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Our Team</a>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <a href="#">Contact us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Blog</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Testimonials</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Faq</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                
-                        <div className="col-md-12 col-lg-6">
-                            <div className="footer-widget">
-                                <div className="section-heading">
-                                    <h3>Subscribe</h3>
-                                    <span className="animate-border border-black"></span>
-                                </div>
-                                <p>
-                                Reference site about Lorem Ipsum, giving information on its origins, as well.</p>
-                                <form action="#">
-                                    <div className="form-row">
-                                        <div className="col dk-footer-form">
-                                            <input type="email" className="form-control" placeholder="Email Address"/>
-                                            <button type="submit">
-                                                <i className="fa fa-send"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                         
-                            </div>
-
-                        </div>
-                
-                    </div>
-            
-                </div>
-        
-            </div>
-           
-        </div>
-
-
-
-        <div className="copyright">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                        <span>Copyright © 2019, All Right Reserved Seobin</span>
-                    </div>
-            
-                    <div className="col-md-6">
-                        <div className="copyright-menu">
-                            <ul>
-                                <li>
-                                    <a href="#">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#">Terms</a>
-                                </li>
-                                <li>
-                                    <a href="#">Privacy Policy</a>
-                                </li>
-                                <li>
-                                    <a href="#">Contact</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-            
-                </div>
-        
-            </div>
-        </div>
-      
+                        <a href="#">Blog</a>
     
-        <div id="back-to-top" className="back-to-top">
-            <button className="btn btn-dark" title="Back to Top" /*style="display: block;"*/>
-                <i className="fa fa-angle-up"></i>
-            </button>
-        </div>
+                        <a href="#">Pricing</a>
+    
+                        <a href="#">About</a>
         
-</footer>
+                        <a href="#">Faq</a>
+        
+                        <a href="#">Contact</a>
+                    </p>
+
+                    <p className="footer-company-name">Company Name © 2015</p>
+                </div>
+
+                <div className="footer-center">
+
+                    <div>
+                        <i className="fa fa-map-marker"></i>
+                        <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+                    </div>
+
+                    <div>
+                        <i className="fa fa-phone"></i>
+                        <p>+1.555.555.5555</p>
+                    </div>
+
+                    <div>
+                        <i className="fa fa-envelope"></i>
+                        <p><a href="mailto:support@company.com">support@company.com</a></p>
+                    </div>
+
+                </div>
+
+                <div className="footer-right">
+
+                    <p className="footer-company-about">
+                    <span>About the company</span>
+                    Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+                    </p>
+
+                    <div className="footer-icons">
+
+                        <a href="#"><i className="fa fa-facebook"></i></a>
+                        <a href="#"><i className="fa fa-twitter"></i></a>
+                        <a href="#"><i className="fa fa-linkedin"></i></a>
+                        <a href="#"><i className="fa fa-github"></i></a>
+
+                    </div>
+
+                </div>
+
+            </footer>
         </>
     );
 }
