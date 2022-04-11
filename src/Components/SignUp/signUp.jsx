@@ -1,14 +1,12 @@
 import { Modal, Input, Row, Button, Text, Link } from '@nextui-org/react';
-import { useEffect } from 'react';
 import { Hide } from '../../icons/Hide';
 import { Mail } from '../../icons/Mail';
 import { Password } from '../../icons/Password';
 import { Show } from '../../icons/Show';
+import { User } from '../../icons/User';
 import { BackgroundColor } from './styled';
 
-export default function Login() {
-	/* 	useEffect({}, []);
-	 */
+export default function SignUp() {
 	return (
 		<>
 			<BackgroundColor>
@@ -25,9 +23,20 @@ export default function Login() {
 							fullWidth
 							color="primary"
 							size="lg"
+							placeholder="Nombre de usuario"
+							contentLeft={<User fill="currentColor" />}
+						/>
+
+						<Input
+							clearable
+							underlined
+							fullWidth
+							color="primary"
+							size="lg"
 							placeholder="Correo electrónico"
 							contentLeft={<Mail fill="currentColor" />}
 						/>
+
 						<Input.Password
 							clearable
 							underlined
@@ -39,14 +48,9 @@ export default function Login() {
 							visibleIcon={<Show fill="currentColor" />}
 							hiddenIcon={<Hide fill="currentColor" />}
 						/>
-						<Row justify="flex-end">
-							<Link href="/signUp" underline icon>
-								Si no tienes cuenta, ¡Regístrate!
-							</Link>
-						</Row>
 					</Modal.Body>
 					<Modal.Footer>
-						<Button css={{ margin: '0 auto' }}>Iniciar sesión</Button>
+						<Button css={{ margin: '0 auto' }}>¡Regístrate!</Button>
 					</Modal.Footer>
 				</Modal>
 			</BackgroundColor>
