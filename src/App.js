@@ -1,25 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { NextUIProvider } from '@nextui-org/react';
 import Home from './pages/home';
-import LoginPage from './pages/login';
-import SignUp from './pages/signUp';
+import Login from './components/Login/login';
+import React, { useEffect } from 'react';
+import { app } from './Firebase/firebase';
 
 export default function App() {
-	return (
-		<Router>
-			<NextUIProvider>
-				<Switch>
-					<Route path="/signUp">
-						<SignUp />
-					</Route>
-					<Route path="/login">
-						<LoginPage />
-					</Route>
-					<Route path="/">
-						<Home />
-					</Route>
-				</Switch>
-			</NextUIProvider>
-		</Router>
-	);
+	const [usuario, setUsuario] = React.useState(null);
+	// useEffect(() => {
+	// 	app.auth().onAuthStateChanged((firebaseUser) => {
+	// 		setUsuario(firebaseUser);
+	// 	});
+	// }, []);
+
+	return usuario ? <Home /> : <Login setUsuario={setUsuario} />;
 }
