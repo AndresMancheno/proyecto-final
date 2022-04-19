@@ -1,5 +1,5 @@
 import Home from './pages/home';
-import Login from './components/Login/login';
+import Login from './components/Login/logins';
 import React, { useEffect } from 'react';
 import { app } from './Firebase/firebase';
 
