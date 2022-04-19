@@ -34,8 +34,15 @@ export const FooterH3Container = styled('h3', {
   margin : 0,
 });
 
-export const FooterSpanContainer = styled('span', {
+export const FooterH3SpanContainer = styled('span', {
   color : '#0000ff',
+});
+
+export const FooterPSpanContainer = styled('span', {
+  display : 'block',
+  fontWeight : 'normal',
+  fontSize : '14px',
+  lineHeight : '2',
 });
 
 export const FooterLinksContainer = styled('p',{
@@ -50,6 +57,20 @@ export const FooterAContainer = styled('a',{
   fontWeight : '400',
   textDecoration : 'none',
   color : 'inherit',
+    '&:before':{
+      content : '|',
+      fontWeight : '300',
+      fontSize : '20px',
+      left : '0',
+      color: '#fff',
+      display: 'inline-block',
+      paddingRight : '5px',
+    }
+});
+
+export const FooterPAContainer = styled('a', {
+  color : '#0000ff',
+  textDecoration : 'none',
 });
 
 export const FooterCompanyNameContainer = styled('p',{
@@ -60,5 +81,62 @@ export const FooterCompanyNameContainer = styled('p',{
 });
 
 export const FooterIContainer = styled('i',{
+  backgroundColor : '#33383b',
+  color : '#ffffff',
+  fontSize : '25px',
+  width : '38px',
+  height : '38px',
+  borderRadius :  '50%',
+  textAlign : 'center',
+  lineHeight : '42px',
+  margin : '10px 15px',
+  verticalAlign : 'middle',
+});
+
+export const FooterPContainer = styled('p', {
+  display : 'inline-block',
+  color : '#ffffff',
+  fontWeight : '400',
+});
+
+export const FooterLink1Container = styled('a', {
+  '&:before' : {
+    content : 'none',
+  }
+});
+
+export const FooterCompanyAboutContainer = styled('p', {
+  lineHeight : '20px',
+  color : '#92999f',
+  fontSize : '13px',
+  fontWeight : 'normal',
+  margin : 0,
+});
+
+export const FooterCompanyAboutSpanContainer = styled('span', {
+  display : 'block',
+  color : '#ffffff',
+  fontSize : '14px',
+  fontWeight : 'bold',
+  marginBottom : '20px',
+});
+
+export const FooterIcons = styled('div',{
+  marginTop : '25px',
+});
+
+export const FooterIconsAContainer = styled('a', {
+  display : 'inline-block',
+  width: '35px',
+  height : '35px',
+  cursor : 'pointer',
+  backgroundColor : '#33383b',
+  borderRadius : '2px',
+  fontSize : '20px',
+  color : '#ffffff',
+  textAlign : 'center',
+  lineHeight : '35px',
+  marginRight : '3px',
+  margintBottom : '5px',
   
 });

@@ -1,52 +1,53 @@
+import { FooterAContainer, FooterCenterContainer, FooterCompanyNameContainer, FooterContainer, FooterH3Container, FooterH3SpanContainer, FooterIContainer, FooterLeftContainer, FooterLinksContainer, FooterPAContainer, FooterPContainer, FooterPSpanContainer, FooterRightContainer } from './styled';
 
 
 
 export default function Footer(){
     return (
         <>
-            <footer className="footer-distributed">
+            <FooterContainer>
 
-                <div className="footer-left">
+                <FooterLeftContainer>
 
-                    <h3>Company<span>logo</span></h3>
+                    <FooterH3Container>Company<FooterH3SpanContainer>logo</FooterH3SpanContainer></FooterH3Container>
 
-                    <p className="footer-links">
+                    <FooterLinksContainer>
                         <a href="#" className="link-1">Home</a>
         
-                        <a href="#">Blog</a>
+                        <FooterAContainer>Blog</FooterAContainer>
     
-                        <a href="#">Pricing</a>
+                        <FooterAContainer>Pricing</FooterAContainer>
     
-                        <a href="#">About</a>
+                        <FooterAContainer>About</FooterAContainer>
         
-                        <a href="#">Faq</a>
+                        <FooterAContainer>Faq</FooterAContainer>
         
-                        <a href="#">Contact</a>
-                    </p>
+                        <FooterAContainer>Contact</FooterAContainer>
+                    </FooterLinksContainer>
 
-                    <p className="footer-company-name">Company Name © 2015</p>
-                </div>
+                    <FooterCompanyNameContainer>Company Name © 2015</FooterCompanyNameContainer>
+                </FooterLeftContainer>
 
-                <div className="footer-center">
+                <FooterCenterContainer>
 
                     <div>
-                        <i className="fa fa-map-marker"></i>
-                        <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+                        <FooterIContainer></FooterIContainer>
+                        <FooterPContainer><FooterPSpanContainer>444 S. Cedros Ave</FooterPSpanContainer> Solana Beach, California</FooterPContainer>
                     </div>
 
                     <div>
-                        <i className="fa fa-phone"></i>
-                        <p>+1.555.555.5555</p>
+                        <FooterIContainer></FooterIContainer>
+                        <FooterPContainer>+1.555.555.5555</FooterPContainer>
                     </div>
 
                     <div>
-                        <i className="fa fa-envelope"></i>
-                        <p><a href="mailto:support@company.com">support@company.com</a></p>
+                        <FooterIContainer></FooterIContainer>
+                        <FooterPContainer><FooterPAContainer>support@company.com</FooterPAContainer></FooterPContainer>
                     </div>
 
-                </div>
+                </FooterCenterContainer>
 
-                <div className="footer-right">
+                <FooterRightContainer>
 
                     <p className="footer-company-about">
                     <span>About the company</span>
@@ -62,9 +63,9 @@ export default function Footer(){
 
                     </div>
 
-                </div>
+                </FooterRightContainer>
 
-            </footer>
+            </FooterContainer>
         </>
     );
 }
