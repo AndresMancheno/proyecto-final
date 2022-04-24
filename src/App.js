@@ -1,15 +1,18 @@
 import Home from './pages/home';
-import Login from './components/Login';
-import React, { useEffect } from 'react';
-import { app } from './Firebase/firebase';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginPage from './pages/login';
+import { UserProvider } from './context/User/UserContext';
 
 export default function App() {
-	const [usuario, setUsuario] = React.useState(null);
-	// useEffect(() => {
-	// 	app.auth().onAuthStateChanged((firebaseUser) => {
-	// 		setUsuario(firebaseUser);
-	// 	});
-	// }, []);
-
-	return usuario ? <Home /> : <Login setUsuario={setUsuario} />;
+	return (
+		<Router>
+			<Switch>
+				<UserProvider>
+					<Route path="/login" component={LoginPage} />
+					<Route path="/" component={Home} />
+				</UserProvider>
+			</Switch>
+		</Router>
+	);
+	//	return usuario ? <Home /> : <Login setUsuario={setUsuario} />;
 }
