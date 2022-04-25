@@ -11,6 +11,7 @@ import { Hide } from '../../icons/Hide';
 import { Mail } from '../../icons/Mail';
 import { Password } from '../../icons/Password';
 import { Show } from '../../icons/Show';
+import { User } from '../../icons/User';
 
 import { Link } from 'react-router-dom';
 
@@ -18,15 +19,17 @@ import { BackgroundColor, MessageError } from './styled';
 
 import { useState } from 'react';
 import { useAuth } from '../../context/authContext';
+import { addUsers } from '../../DB/addUsers';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
 	const [user, setUser] = useState({
+		userName: '',
 		email: '',
 		password: '',
 	});
 
-	const { login } = useAuth();
+	const { signUp } = useAuth();
 	const navigate = useNavigate();
 
 	const [error, setError] = useState();
@@ -40,10 +43,16 @@ export default function SignUp() {
 		setError('');
 
 		try {
-			await login(user.email, user.password);
-			navigate('/');
+			await signUp(user.email, user.password);
+
+			try {
+				addUsers(user.userName, user.email);
+				navigate('/login');
+			} catch (error) {
+				setError('Ha habido un problema en el registro :(');
+			}
 		} catch (error) {
-			setError('El usuario no existe :(');
+			setError('Ha habido un problema en el registro :(');
 		}
 	};
 
@@ -53,12 +62,26 @@ export default function SignUp() {
 				<Modal preventClose blur aria-labelledby="modal-title" open={true}>
 					<Modal.Header>
 						<Text size={20}>
-							Bienvenido a <Text b>RGL Notes</Text>
+							Regístrate en <Text b>RGL Notes</Text>
 						</Text>
 					</Modal.Header>
 
 					{error && <MessageError>{error}</MessageError>}
 					<Modal.Body>
+						<Input
+							clearable
+							underlined
+							color="primary"
+							fullWidth
+							size="lg"
+							type="userName"
+							name="userName"
+							placeholder="Andrés Iniesta"
+							aria-label="User Name"
+							contentLeft={<User fill="currentColor" />}
+							onChange={handlerChange}
+						/>
+
 						<Input
 							clearable
 							underlined
@@ -90,15 +113,15 @@ export default function SignUp() {
 						/>
 
 						<Row justify="flex-end">
-							<Link to="/signUp">
-								<div as={NextLink}>Si no tienes cuenta, ¡Regístrate!</div>
+							<Link to="/login">
+								<div as={NextLink}>Volver al login</div>
 							</Link>
 						</Row>
 					</Modal.Body>
 
 					<Modal.Footer>
 						<Button css={{ margin: '0 auto' }} onClick={handlerSubmit}>
-							¡Bienvenido!
+							¡Regístrate!
 						</Button>
 					</Modal.Footer>
 				</Modal>

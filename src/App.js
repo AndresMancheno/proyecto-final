@@ -1,18 +1,27 @@
 import Home from './pages/home';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import LoginPage from './pages/login';
-import { UserProvider } from './context/User/UserContext';
+import SignUpPage from './pages/signUp';
+import { AuthProvider } from './context/authContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export default function App() {
 	return (
-		<Router>
-			<Switch>
-				<UserProvider>
-					<Route path="/login" component={LoginPage} />
-					<Route path="/" component={Home} />
-				</UserProvider>
-			</Switch>
-		</Router>
+		<BrowserRouter>
+			<AuthProvider>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<ProtectedRoute>
+								<Home />
+							</ProtectedRoute>
+						}
+					/>
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/signUp" element={<SignUpPage />} />
+				</Routes>
+			</AuthProvider>
+		</BrowserRouter>
 	);
-	//	return usuario ? <Home /> : <Login setUsuario={setUsuario} />;
 }
