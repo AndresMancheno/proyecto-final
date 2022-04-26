@@ -6,12 +6,12 @@ import {
 	signOut,
 } from 'firebase/auth';
 import { auth } from '../Firebase/firebase';
-import { getUserName } from '../DB/addUsers';
+import { getUserName } from '../DB/users';
 
-export const authContext = createContext();
+export const AuthContext = createContext();
 
 export const useAuth = () => {
-	const context = useContext(authContext);
+	const context = useContext(AuthContext);
 
 	if (!context) throw new Error('There is no provider');
 
@@ -19,7 +19,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-	const [user, setUser] = useState(window.localStorage.getItem('userLogged'));
+	const [user, setUser] = useState(undefined);
 	const [userName, setUserName] = useState(
 		window.localStorage.getItem('userName')
 	);
@@ -44,9 +44,13 @@ export function AuthProvider({ children }) {
 		return () => userLogOut();
 	}, []);
 
+	useEffect(() => {
+		setUser(window.localStorage.getItem('userLogged'));
+	}, []);
+
 	return (
-		<authContext.Provider value={{ signUp, login, logout, user, userName }}>
+		<AuthContext.Provider value={{ signUp, login, logout, user, userName }}>
 			{children}
-		</authContext.Provider>
+		</AuthContext.Provider>
 	);
 }

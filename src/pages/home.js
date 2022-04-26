@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { ProtectedRoute } from '../components/ProtectedRoute';
 import { useAuth } from '../context/authContext';
 
 export default function Home() {
-	const { userName, logout } = useAuth();
+	const { user, userName, logout } = useAuth();
 	const navigate = useNavigate();
 
 	const handleLogout = async () => {
@@ -11,10 +12,10 @@ export default function Home() {
 	};
 
 	return (
-		<>
+		<ProtectedRoute>
 			<h1>Bienvenido {userName}</h1>
 
 			<button onClick={handleLogout}>Cerrar sesión</button>
-		</>
+		</ProtectedRoute>
 	);
 }
