@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <>
       <HeaderContainer>
-        <Grid.Container gap={2} justify="space-around">
+        <Grid.Container justify="space-around">
           <Grid xs={8} sm={9} md={10}>
             <Dropdown>
               <NavItem icon={<Hamburger />}>
