@@ -1,21 +1,14 @@
+import { Grid } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { useAuth } from '../context/authContext';
+import TaskPage from './taskPage';
 
 export default function Home() {
-	const { user, userName, logout } = useAuth();
-	const navigate = useNavigate();
-
-	const handleLogout = async () => {
-		await logout();
-		navigate('/login');
-	};
-
-	return (
-		<ProtectedRoute>
-			<h1>Bienvenido {userName}</h1>
-
-			<button onClick={handleLogout}>Cerrar sesión</button>
-		</ProtectedRoute>
-	);
+  return (
+    <ProtectedRoute>
+      <Header />
+    </ProtectedRoute>
+  );
 }
