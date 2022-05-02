@@ -1,7 +1,7 @@
 import { styled } from '@nextui-org/react';
 
 export const FooterContainer = styled('footer',{
-  background : '#666',
+  background : '#FEF9EF',
   boxShadow : '0 1px 1px 0 rgba(0,0,0,0,0.12)',
   boxSizing : 'border-box',
   width : '100%',
@@ -29,7 +29,7 @@ export const FooterRightContainer = styled('div', {
 });
 
 export const FooterH3Container = styled('h3', {
-  color : '#ffffff',
+  color : '#000000',
   font : 'normal 36px Open Sans, cursive',
   margin : 0,
 });
@@ -46,7 +46,7 @@ export const FooterPSpanContainer = styled('span', {
 });
 
 export const FooterLinksContainer = styled('p',{
-  color : '#ffffff',
+  color : '#000000',
   margin : '20px 0 12px',
   padding : '0',
 });
@@ -62,7 +62,7 @@ export const FooterAContainer = styled('a',{
       fontWeight : '300',
       fontSize : '20px',
       left : '0',
-      color: '#fff',
+      color: '#000000',
       display: 'inline-block',
       paddingRight : '5px',
     }
@@ -82,7 +82,7 @@ export const FooterCompanyNameContainer = styled('p',{
 
 export const FooterIContainer = styled('i',{
   backgroundColor : '#33383b',
-  color : '#ffffff',
+  color : '#000000',
   fontSize : '25px',
   width : '38px',
   height : '38px',
@@ -95,7 +95,7 @@ export const FooterIContainer = styled('i',{
 
 export const FooterPContainer = styled('p', {
   display : 'inline-block',
-  color : '#ffffff',
+  color : '#000000',
   fontWeight : '400',
 });
 
@@ -115,7 +115,7 @@ export const FooterCompanyAboutContainer = styled('p', {
 
 export const FooterCompanyAboutSpanContainer = styled('span', {
   display : 'block',
-  color : '#ffffff',
+  color : '#000000',
   fontSize : '14px',
   fontWeight : 'bold',
   marginBottom : '20px',
@@ -133,7 +133,7 @@ export const FooterIconsAContainer = styled('a', {
   backgroundColor : '#33383b',
   borderRadius : '2px',
   fontSize : '20px',
-  color : '#ffffff',
+  color : '#000000',
   textAlign : 'center',
   lineHeight : '35px',
   marginRight : '3px',

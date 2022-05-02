@@ -1,4 +1,4 @@
-import { FooterAContainer, FooterCenterContainer, FooterCompanyNameContainer, FooterContainer, FooterH3Container, FooterH3SpanContainer, FooterIContainer, FooterLeftContainer, FooterLinksContainer, FooterPAContainer, FooterPContainer, FooterPSpanContainer, FooterRightContainer } from './styled';
+import { FooterAContainer, FooterCenterContainer, FooterCompanyAboutContainer, FooterCompanyAboutSpanContainer, FooterCompanyNameContainer, FooterContainer, FooterH3Container, FooterH3SpanContainer, FooterIcons, FooterIconsAContainer, FooterIContainer, FooterLeftContainer, FooterLinksContainer, FooterPAContainer, FooterPContainer, FooterPSpanContainer, FooterRightContainer } from './styled';
 
 
 
@@ -9,7 +9,7 @@ export default function Footer(){
 
                 <FooterLeftContainer>
 
-                    <FooterH3Container>Company<FooterH3SpanContainer>logo</FooterH3SpanContainer></FooterH3Container>
+                    <img src='../images/logo.png'></img>
 
                     <FooterLinksContainer>
                         <a href="#" className="link-1">Home</a>
@@ -32,36 +32,36 @@ export default function Footer(){
 
                     <div>
                         <FooterIContainer></FooterIContainer>
-                        <FooterPContainer><FooterPSpanContainer>444 S. Cedros Ave</FooterPSpanContainer> Solana Beach, California</FooterPContainer>
+                        <FooterPContainer><FooterPSpanContainer>C/Andres es un bobin Nº 69</FooterPSpanContainer> Petrer, Alicante</FooterPContainer>
                     </div>
 
                     <div>
                         <FooterIContainer></FooterIContainer>
-                        <FooterPContainer>+1.555.555.5555</FooterPContainer>
+                        <FooterPContainer>+34 674117895</FooterPContainer>
                     </div>
 
                     <div>
                         <FooterIContainer></FooterIContainer>
-                        <FooterPContainer><FooterPAContainer>support@company.com</FooterPAContainer></FooterPContainer>
+                        <FooterPContainer><FooterPAContainer>rglnotes@gmail.com</FooterPAContainer></FooterPContainer>
                     </div>
 
                 </FooterCenterContainer>
 
                 <FooterRightContainer>
 
-                    <p className="footer-company-about">
-                    <span>About the company</span>
-                    Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
-                    </p>
+                    <FooterCompanyAboutContainer>
+                    <FooterCompanyAboutSpanContainer>Somos una compañia formada por un bobo y uno no bobo</FooterCompanyAboutSpanContainer>
+                    El bobo es muy bobo y el no bobo es muy guapo.
+                    </FooterCompanyAboutContainer>
 
-                    <div className="footer-icons">
+                    <FooterIcons>
 
-                        <a href="#"><i className="fa fa-facebook"></i></a>
-                        <a href="#"><i className="fa fa-twitter"></i></a>
-                        <a href="#"><i className="fa fa-linkedin"></i></a>
-                        <a href="#"><i className="fa fa-github"></i></a>
+                        <FooterIconsAContainer><i className="fa fa-facebook"></i></FooterIconsAContainer>
+                        <FooterIconsAContainer><i className="fa fa-twitter"></i></FooterIconsAContainer>
+                        <FooterIconsAContainer><i className="fa fa-linkedin"></i></FooterIconsAContainer>
+                        <FooterIconsAContainer><i className="fa fa-github"></i></FooterIconsAContainer>
 
-                    </div>
+                    </FooterIcons>
 
                 </FooterRightContainer>
 
