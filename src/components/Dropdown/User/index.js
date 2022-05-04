@@ -7,7 +7,12 @@ import { useAuth } from '../../../context/authContext';
 import { changeUserName } from '../../../DB/users';
 
 import IconUser from '../../Avatar';
-import { DropdownContent, DropdownItem, MessageError } from './styled';
+import {
+  DropdownContent,
+  DropdownItem,
+  MessageError,
+  UserNameContainer,
+} from './styled';
 
 export default function DropdownUser() {
   const {
@@ -41,11 +46,11 @@ export default function DropdownUser() {
 
   return (
     <Root>
-      <Trigger asChild>
+      <UserNameContainer asChild>
         <div aria-label="Customise options">
           <IconUser />
         </div>
-      </Trigger>
+      </UserNameContainer>
       <DropdownContent sideOffset={5}>
         <DropdownItem onClick={() => setOpen(true)}>
           Cambiar el nombre
