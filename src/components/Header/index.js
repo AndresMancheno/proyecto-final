@@ -1,10 +1,9 @@
-import { Grid, Text } from '@nextui-org/react';
+import { Text } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
-import { Hamburger } from '../../icons/Hamburger';
-import Dropdown, { DropdownMenu, DropdownUser, NavItem } from '../Dropdown';
-import IconUser from '../User';
-import { HeaderContainer } from './styled';
+import DropdownUser from '../Dropdown/User';
+
+import { GreetingUser, HeaderContainer, HeaderItemContainer } from './styled';
 export default function Header() {
   const { userName, logout } = useAuth();
   const navigate = useNavigate();
@@ -17,30 +16,17 @@ export default function Header() {
   return (
     <>
       <HeaderContainer>
-        <Grid.Container justify="space-around">
-          <Grid xs={8} sm={9} md={10}>
-            <Dropdown>
-              <NavItem icon={<Hamburger />}>
-                <DropdownMenu />
-              </NavItem>
-            </Dropdown>
-            <Text h2 color="white">
-              RGL Notes
-            </Text>
-          </Grid>
-          <Grid xs={4} sm={3} md={2}>
-            <Dropdown>
-              <NavItem icon={<IconUser />}>
-                <DropdownUser logoutFunction={handleLogout} />
-              </NavItem>
-            </Dropdown>
-          </Grid>
-        </Grid.Container>
-      </HeaderContainer>
+        <HeaderItemContainer marginLeft>
+          <Text h2 color="#fff">
+            RGL Notes
+          </Text>
+        </HeaderItemContainer>
+        <HeaderItemContainer marginRight>
+          <DropdownUser />
+        </HeaderItemContainer>
 
-      <Text h3 css={{ textAlign: 'center', marginTop: '2rem' }} color="$yellor">
-        Bienvenido {userName}
-      </Text>
+      </HeaderContainer>
+      <GreetingUser h3>Bienvenid@ {userName}</GreetingUser>
     </>
   );
 }
