@@ -1,5 +1,5 @@
 import { styled } from '@nextui-org/react';
-import { Content, RadioItem } from '@radix-ui/react-dropdown-menu';
+import { Content, RadioItem, Trigger } from '@radix-ui/react-dropdown-menu';
 
 export const DropdownContent = styled(Content, {
   minWidth: 220,
@@ -18,7 +18,7 @@ export const DropdownItem = styled(RadioItem, {
   display: 'flex',
   alignItems: 'center',
   height: 25,
-  padding: '0 5px',
+  padding: '.5rem',
   position: 'relative',
   paddingLeft: 25,
   userSelect: 'none',
@@ -34,4 +34,8 @@ export const MessageError = styled('span', {
   fontSize: '12px',
   textAlign: 'center',
   color: '$error',
+});
+
+export const UserNameContainer = styled(Trigger, {
+  marginBottom: '.3rem',
 });
