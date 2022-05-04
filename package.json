@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@nextui-org/react": "^1.0.6-beta.5",
+    "@radix-ui/react-dialog": "^0.1.7",
+    "@radix-ui/react-dropdown-menu": "^0.1.6",
+    "@radix-ui/react-icons": "^1.1.0",
     "@stitches/react": "^1.2.7",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
