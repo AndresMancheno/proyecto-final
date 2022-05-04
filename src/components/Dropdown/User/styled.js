@@ -29,3 +29,9 @@ export const DropdownItem = styled(RadioItem, {
     fontSize: 14,
   },
 });
+
+export const MessageError = styled('span', {
+  fontSize: '12px',
+  textAlign: 'center',
+  color: '$error',
+});

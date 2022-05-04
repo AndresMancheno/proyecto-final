@@ -25,7 +25,7 @@ export default function Header() {
           <DropdownUser />
         </HeaderItemContainer>
       </HeaderContainer>
-      <GreetingUser h3>Bienvenido {userName}</GreetingUser>
+      <GreetingUser h3>Bienvenid@ {userName}</GreetingUser>
     </>
   );
 }
