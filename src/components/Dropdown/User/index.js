@@ -1,10 +1,11 @@
 import { Button, Input, Modal, Text } from '@nextui-org/react';
-import { Root, Trigger } from '@radix-ui/react-dropdown-menu';
+import { Root } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/authContext';
 import { changeUserName } from '../../../DB/users';
+import { motion } from 'framer-motion';
 
 import IconUser from '../../Avatar';
 import {
@@ -51,13 +52,16 @@ export default function DropdownUser() {
           <IconUser />
         </div>
       </UserNameContainer>
+
       <DropdownContent sideOffset={5}>
-        <DropdownItem onClick={() => setOpen(true)}>
-          Cambiar el nombre
-        </DropdownItem>
-        <DropdownItem onClick={() => handleLogout()}>
-          Cerrar sesión
-        </DropdownItem>
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+          <DropdownItem onClick={() => setOpen(true)}>
+            Cambiar el nombre
+          </DropdownItem>
+          <DropdownItem onClick={() => handleLogout()}>
+            Cerrar sesión
+          </DropdownItem>
+        </motion.div>
       </DropdownContent>
 
       <Modal

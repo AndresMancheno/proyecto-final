@@ -23,6 +23,7 @@ export const DropdownItem = styled(RadioItem, {
   paddingLeft: 25,
   userSelect: 'none',
   cursor: 'pointer',
+  fontWeight: 'bold',
 
   '&:focus': {
     backgroundColor: '$yellow',
