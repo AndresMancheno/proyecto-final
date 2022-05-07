@@ -6,7 +6,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from '../Firebase/firebase';
-import { getUserName } from '../DB/users';
+import { getUser, getUserName } from '../DB/users';
 
 export const AuthContext = createContext();
 
@@ -23,16 +23,30 @@ export function AuthProvider({ children }) {
   const [userName, setUserName] = useState(
     window.localStorage.getItem('userName')
   );
+  const [userImage, setUserImage] = useState(
+    window.localStorage.getItem('userImage')
+  );
+
+  const [userColor, setUserColor] = useState(
+    window.localStorage.getItem('userColor')
+  );
 
   const signUp = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
   const login = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password);
-    setUserName(await getUserName(email));
+    const user = await getUser(email);
+    console.log(user);
+    setUserName(user.name);
+    setUserImage(user.image);
+    setUserColor(user.color);
 
-    window.localStorage.setItem('userName', await getUserName(email));
+    window.localStorage.setItem('userName', user.name);
+    window.localStorage.setItem('userImage', user.image);
+    window.localStorage.setItem('userColor', user.color);
   };
+
   const logout = () => signOut(auth);
 
   useEffect(() => {
@@ -50,7 +64,18 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signUp, login, logout, user, userName, setUserName }}
+      value={{
+        signUp,
+        login,
+        logout,
+        user,
+        userName,
+        setUserName,
+        userImage,
+        setUserImage,
+        userColor,
+        setUserColor,
+      }}
     >
       {children}
     </AuthContext.Provider>
