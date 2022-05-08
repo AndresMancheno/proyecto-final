@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../Firebase/firebase';
 import { getUserName } from '../DB/users';
+import { getUserSections } from '../DB/sections';
 
 export const AuthContext = createContext();
 
@@ -20,18 +21,26 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
+  const [userEmail, setUserEmail] = useState(
+    window.localStorage.getItem('userEmail')
+  );
   const [userName, setUserName] = useState(
     window.localStorage.getItem('userName')
   );
+  const [userSections, setUserSections] = useState(getUserSections(userEmail));
 
   const signUp = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
   const login = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password);
-    setUserName(await getUserName(email));
-
+    const allUserSections = getUserSections(email);
+    window.localStorage.setItem('userEmail', email);
     window.localStorage.setItem('userName', await getUserName(email));
+    setUserSections(allUserSections);
+
+    setUserEmail(email);
+    setUserName(await getUserName(email));
   };
   const logout = () => signOut(auth);
 
@@ -50,7 +59,17 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signUp, login, logout, user, userName, setUserName }}
+      value={{
+        signUp,
+        login,
+        logout,
+        user,
+        userEmail,
+        userName,
+        setUserName,
+        userSections,
+        setUserSections,
+      }}
     >
       {children}
     </AuthContext.Provider>

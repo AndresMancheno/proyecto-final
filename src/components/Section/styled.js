@@ -44,3 +44,32 @@ export const CardSection = styled(Card, {
     width: '300px',
   },
 });
+
+export const MessageError = styled('span', {
+  fontSize: '12px',
+  textAlign: 'center',
+  color: '$error',
+});
+
+export const StyledInput = styled('input', {
+  display: 'block',
+  fontSize: '16px',
+  fontWeight: 400,
+  border: '1px solid #333333',
+  padding: '10px',
+  borderRadius: '10px',
+  margin: '.10rem',
+});
+export const StyledSelect = styled('select', {
+  display: 'block',
+  fontSize: '16px',
+  fontWeight: 400,
+  border: '1px solid #333333',
+  padding: '10px',
+  borderRadius: '10px',
+  margin: '.10rem',
+});
+
+export const StyledOption = styled('option', {
+  fontSize: '16px',
+});
