@@ -1,4 +1,4 @@
-import { Button, Modal, Text } from '@nextui-org/react';
+import { Button, Modal, Text, useTheme } from '@nextui-org/react';
 import { Root } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

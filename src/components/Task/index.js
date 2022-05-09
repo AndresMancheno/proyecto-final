@@ -1,21 +1,14 @@
-import { Grid, Spacer } from '@nextui-org/react';
+import { Spacer } from '@nextui-org/react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ProtectedRoute } from '../components/ProtectedRoute';
-import { TaskBanner } from '../components/Task/Banner/index';
-import { TaskCreator } from '../components/Task/Creator';
-import { TaskRow } from '../components/Task/Row';
-import { VisibilityControl } from '../components/Task/VisibilityControl';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../../context/authContext';
 
-export default function Home() {
-  const { userName, logout } = useAuth();
-  const navigate = useNavigate();
+import { TaskBanner } from './Banner';
+import { TaskCreator } from './Creator';
+import { TaskRow } from './Row';
+import { VisibilityControl } from './VisibilityControl';
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
+export default function Task() {
+  const { userName } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(true);
 
