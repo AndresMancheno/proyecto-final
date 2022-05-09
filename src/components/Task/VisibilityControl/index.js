@@ -1,5 +1,3 @@
-import { Input } from '@nextui-org/react';
-
 export const VisibilityControl = (props) => {
   return (
     <>

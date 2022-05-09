@@ -1,13 +1,19 @@
-import { Text } from '@nextui-org/react';
+import { Switch, Text, useTheme } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import DropdownUser from '../Dropdown/User';
 import { motion } from 'framer-motion';
-import { GreetingUser, HeaderContainer, HeaderItemContainer } from './styled';
+import {
+  GreetingUser,
+  HeaderContainer,
+  HeaderItemContainer,
+  RightHeaderSide,
+} from './styled';
+import { useTheme as useNextTheme } from 'next-themes';
+import ChangeTheme from '../Switch/theme';
 
 export default function Header() {
   const { userName } = useAuth();
-
   return (
     <>
       <HeaderContainer>
@@ -17,7 +23,10 @@ export default function Header() {
           </Text>
         </HeaderItemContainer>
         <HeaderItemContainer marginRight>
-          <DropdownUser />
+          <RightHeaderSide>
+            <ChangeTheme />
+            <DropdownUser />
+          </RightHeaderSide>
         </HeaderItemContainer>
       </HeaderContainer>
 
