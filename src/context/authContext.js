@@ -5,9 +5,9 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
-import { auth } from '../Firebase/firebase';
-import { getUserName } from '../DB/users';
-import { getUserSections } from '../DB/sections';
+import { auth } from '../firebase/firebase';
+import { getUserName } from '../db/users';
+import { getUserSections } from '../db/sections';
 
 export const AuthContext = createContext();
 

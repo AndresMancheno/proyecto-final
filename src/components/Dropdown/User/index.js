@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/authContext';
-import { changeUserName } from '../../../DB/users';
+import { changeUserName } from '../../../db/users';
 import { motion } from 'framer-motion';
 
 import IconUser from '../../Avatar';

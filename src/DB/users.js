@@ -7,7 +7,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { db } from '../Firebase/firebase';
+import { db } from '../firebase/firebase';
 
 const usersDB = collection(db, 'Users');
 export function addUsers(userName, email) {

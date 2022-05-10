@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/authContext';
-import { addSection, getUserSections } from '../../DB/sections';
+import { addSection, getUserSections } from '../../db/sections';
 import { Add } from '../../icons/Add';
 import { CreateCardSection } from './createSection';
 import {

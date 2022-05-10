@@ -1,5 +1,5 @@
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../Firebase/firebase';
+import { db } from '../firebase/firebase';
 
 const sectionsDB = collection(db, 'Sections');
 
