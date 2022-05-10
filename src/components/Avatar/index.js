@@ -1,5 +1,5 @@
 import { Avatar } from '@nextui-org/react';
-import { useAuth } from '../../context/authContext';
+import { useAuth } from 'context/authContext';
 
 export default function IconUser() {
   const { userName, userImage, userColor } = useAuth();

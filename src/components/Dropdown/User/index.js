@@ -1,13 +1,12 @@
-import { Button, Modal, Text, useTheme } from '@nextui-org/react';
+import { Button, Modal, Text } from '@nextui-org/react';
 import { Root } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/authContext';
-import { changeProfile } from '../../../DB/users';
+import { changeProfile } from '../../../db/users';
 import { motion } from 'framer-motion';
 
-import IconUser from '../../Avatar';
 import {
   DropdownContent,
   DropdownItem,
@@ -17,6 +16,7 @@ import {
   StyledSelect,
   UserNameContainer,
 } from './styled';
+import IconUser from 'components/Avatar';
 
 export default function DropdownUser() {
   const {
