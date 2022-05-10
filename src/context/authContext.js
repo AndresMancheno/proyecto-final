@@ -21,13 +21,20 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
+
   const [userEmail, setUserEmail] = useState(
     window.localStorage.getItem('userEmail')
   );
+
   const [userName, setUserName] = useState(
     window.localStorage.getItem('userName')
   );
-  const [userSections, setUserSections] = useState(getUserSections(userEmail));
+
+  const [userSections, setUserSections] = useState([]);
+
+  getUserSections(userEmail, setUserSections);
+
+  console.log(userSections);
 
   const signUp = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);

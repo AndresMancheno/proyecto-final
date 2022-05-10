@@ -24,18 +24,12 @@ let fetchTodo = async (email) => {
   }
 };
 
-// For the folowing code to work, it must be placed inside a async  function as well
-// const res = await fetchTodo();
-// console.log(`Test: ${res.data}`);
-export async function getUserSections(email) {
+export async function getUserSections(email, setUserSections) {
   const querySnapshot = await fetchTodo(email);
-  let userSections = [];
-  querySnapshot.forEach((doc) => {
-    userSections.push(doc.data());
-  });
 
-  // querySnapshot.forEach((doc) => {
-  //   userSections.push(doc.data());
-  // });
-  return userSections;
+  let userSections = [];
+  userSections = querySnapshot.docs.map((doc) => {
+    return doc.data();
+  });
+  setUserSections(userSections);
 }
