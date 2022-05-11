@@ -1,7 +1,6 @@
-import { Input } from '@nextui-org/react';
 import { useState } from 'react';
 import { Send } from '../../../icons/Send';
-import { FlexContainer, SendButton } from './styled';
+import { FlexContainer, SendButton, StyledInput } from './styled';
 
 export const TaskCreator = ({ callBack }) => {
   const [newTaskName, setNewTaskName] = useState('');
@@ -16,7 +15,7 @@ export const TaskCreator = ({ callBack }) => {
   return (
     <>
       <FlexContainer>
-        <Input
+        <StyledInput
           bordered
           autoFocus
           placeholder="Crea una tarea..."
@@ -27,7 +26,7 @@ export const TaskCreator = ({ callBack }) => {
           aria-label="task"
           value={newTaskName}
           onChange={updateNewTaskValue}
-        ></Input>
+        ></StyledInput>
         <SendButton onClick={createNewTask}>
           <Send />
         </SendButton>

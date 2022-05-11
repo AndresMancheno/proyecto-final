@@ -5,10 +5,11 @@ import { useAuth } from '../../context/authContext';
 import { TaskBanner } from './Banner';
 import { TaskCreator } from './Creator';
 import { TaskRow } from './Row';
+import { StyledTaskTable } from './styled';
 import { VisibilityControl } from './VisibilityControl';
 
 export default function Task() {
-  const { userName } = useAuth();
+  const { userConf } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(true);
 
@@ -40,36 +41,23 @@ export default function Task() {
 
   return (
     <>
-      <TaskBanner userName={userName} taskItems={taskItems} />
+      <TaskBanner userName={userConf.name} taskItems={taskItems} />
       <Spacer y={2} />
       <TaskCreator callBack={createNewTask} />
 
-      <table
-        style={{
-          margin: '0 auto',
-          width: '500px',
-          textAlign: 'center',
-          marginTop: '2rem',
-        }}
-      >
+      <StyledTaskTable>
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Done</th>
+            <th>Descripción</th>
+            <th>Completada</th>
           </tr>
         </thead>
 
         <tbody>{taskTableRows(false)}</tbody>
-      </table>
+      </StyledTaskTable>
 
       <div style={{ margion: '0 auto' }}>
         <VisibilityControl
-          style={{
-            margin: '0 auto',
-            width: '500px',
-            textAlign: 'center',
-            marginTop: '2rem',
-          }}
           description="tareas completadas"
           isChecked={showCompleted}
           callBack={(checked) => setShowCompleted(checked)}
@@ -77,23 +65,16 @@ export default function Task() {
       </div>
 
       {showCompleted && (
-        <table
-          style={{
-            margin: '0 auto',
-            width: '500px',
-            textAlign: 'center',
-            marginTop: '2rem',
-          }}
-        >
+        <StyledTaskTable>
           <thead>
             <tr>
-              <th>Description</th>
-              <th>Done</th>
+              <th>Descripción</th>
+              <th>Completada</th>
             </tr>
           </thead>
 
           <tbody>{taskTableRows(true)}</tbody>
-        </table>
+        </StyledTaskTable>
       )}
     </>
   );

@@ -1,10 +1,8 @@
-import Home from './pages/home';
+import { AuthProvider } from 'context/authContext';
+import Home from 'pages/home';
+import LoginPage from 'pages/login';
+import SignUpPage from 'pages/signUp';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import LoginPage from './pages/login';
-import SignUpPage from './pages/signUp';
-import { AuthProvider } from './context/authContext';
-import { NextUIProvider } from '@nextui-org/react';
-import { theme } from './theme/theme';
 
 export default function App() {
   return (
