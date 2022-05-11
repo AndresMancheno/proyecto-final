@@ -1,11 +1,5 @@
-// 1. Import `createTheme`
-import {
-  createTheme,
-  getDocumentTheme,
-  NextUIProvider,
-} from '@nextui-org/react';
-import { useEffect, useState } from 'react';
-import App from '../App';
+import { createTheme, NextUIProvider } from '@nextui-org/react';
+import App from 'App';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 const lightTheme = createTheme({

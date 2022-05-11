@@ -1,19 +1,18 @@
-import { Switch, Text, useTheme } from '@nextui-org/react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/authContext';
-import DropdownUser from '../Dropdown/User';
+import { Text } from '@nextui-org/react';
+import { useAuth } from 'context/authContext';
 import { motion } from 'framer-motion';
+import ChangeTheme from 'components/Switch/Theme';
+import DropdownUser from 'components/Dropdown/User';
 import {
   GreetingUser,
   HeaderContainer,
   HeaderItemContainer,
   RightHeaderSide,
 } from './styled';
-import { useTheme as useNextTheme } from 'next-themes';
-import ChangeTheme from '../Switch/theme';
 
 export default function Header() {
-  const { userName } = useAuth();
+  const { userConf } = useAuth();
+
   return (
     <>
       <HeaderContainer>
@@ -31,7 +30,7 @@ export default function Header() {
       </HeaderContainer>
 
       <motion.div animate={{ y: 10 }} transition={{ duration: 0.5 }}>
-        <GreetingUser h2>Bienvenid@ {userName}</GreetingUser>
+        <GreetingUser h2>Bienvenid@ {userConf.name}</GreetingUser>
       </motion.div>
     </>
   );
