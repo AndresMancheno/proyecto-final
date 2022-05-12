@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { getUserName } from '../db/users';
-import { getUserSections } from '../db/sections';
 
 export const AuthContext = createContext();
 
@@ -30,21 +29,13 @@ export function AuthProvider({ children }) {
     window.localStorage.getItem('userName')
   );
 
-  const [userSections, setUserSections] = useState([]);
-
-  getUserSections(userEmail, setUserSections);
-
-  console.log(userSections);
-
   const signUp = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
   const login = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password);
-    const allUserSections = getUserSections(email);
     window.localStorage.setItem('userEmail', email);
     window.localStorage.setItem('userName', await getUserName(email));
-    setUserSections(allUserSections);
 
     setUserEmail(email);
     setUserName(await getUserName(email));
@@ -74,8 +65,6 @@ export function AuthProvider({ children }) {
         userEmail,
         userName,
         setUserName,
-        userSections,
-        setUserSections,
       }}
     >
       {children}

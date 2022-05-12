@@ -7,7 +7,7 @@ import {
   Row,
   Text,
 } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/authContext';
 import { addSection, getUserSections } from '../../db/sections';
@@ -24,44 +24,20 @@ import {
 } from './styled';
 
 export default function Section() {
+  const { user } = useAuth();
+  const [userSections, setUserSections] = useState([]);
+
+  useEffect(() => {
+    setUserSections(getUserSections(user.email));
+  }, []);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-
-  const onSubmit = (values) => createSection(values);
-
-  const userSections = [];
-  const sections = userSections.map((section) => (
-    <CreateCardSection
-      key={section.id}
-      color={section.color}
-      name={section.name}
-    />
-  ));
-  const [section, setSections] = useState(sections);
-  const createSection = async (value) => {
-    try {
-      await addSection(value, user.email);
-      let newSection = { color: value.color, name: value.name, id: value.name };
-      setSections(
-        section.concat(
-          <CreateCardSection
-            key={newSection.id}
-            color={newSection.color}
-            name={newSection.name}
-          />
-        )
-      );
-      setOpen(false);
-    } catch (ev) {
-      //
-    }
-  };
 
   return (
     <>
@@ -79,7 +55,7 @@ export default function Section() {
           />
         </TitleSectionContainer>
 
-        <GridSectionContainer>{section}</GridSectionContainer>
+        <GridSectionContainer>{}</GridSectionContainer>
       </div>
 
       <Modal
@@ -88,7 +64,7 @@ export default function Section() {
         aria-labelledby="modal-title"
         onClose={() => setOpen(false)}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(/* onSubmit */)}>
           <Modal.Header>
             <Text id="modal-title" size={18}>
               Crea tú nueva{' '}
