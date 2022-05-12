@@ -28,7 +28,7 @@ export async function getUser(email) {
 
   let user;
 
-  querySnapshot.map((doc) => {
+  querySnapshot.forEach((doc) => {
     user = doc.data();
   });
 
@@ -42,7 +42,7 @@ export async function changeProfile(user, email) {
 
   let userID;
 
-  querySnapshot.map((doc) => {
+  querySnapshot.forEach((doc) => {
     userID = doc.id;
   });
 

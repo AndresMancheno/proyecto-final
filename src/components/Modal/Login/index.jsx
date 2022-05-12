@@ -37,7 +37,7 @@ export default function ModalLogin() {
       await login(values.email, values.password);
       navigate('/');
     } catch (error) {
-      console.log('error');
+      console.log(error);
     }
   };
 
