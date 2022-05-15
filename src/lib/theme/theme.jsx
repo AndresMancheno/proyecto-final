@@ -6,6 +6,8 @@ const lightTheme = createTheme({
   type: 'light',
   theme: {
     colors: {
+      colorButton: 'red',
+      primary: 'blue',
       darkBlue: '#1A5D75',
       yellow: '#FFCB77',
       snow: '#FEF9EF',
@@ -22,6 +24,9 @@ const darkTheme = createTheme({
   type: 'dark',
   theme: {
     colors: {
+      background: '#222831',
+      colorButton: '#ECFDF4',
+      primary: 'bluemarine',
       darkBlue: '#1A5D75',
       yellow: '#FFCB77',
       snow: '#FEF9EF',

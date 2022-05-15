@@ -1,47 +1,41 @@
-export const Hide = () => {
-	return (
-		<svg
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M9.7606 14.3668C9.1856 13.7928 8.8356 13.0128 8.8356 12.1378C8.8356 10.3848 10.2476 8.9718 11.9996 8.9718C12.8666 8.9718 13.6646 9.3228 14.2296 9.8968"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="M15.1048 12.6989C14.8728 13.9889 13.8568 15.0069 12.5678 15.2409"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="M6.6546 17.4723C5.0676 16.2263 3.7236 14.4063 2.7496 12.1373C3.7336 9.85829 5.0866 8.02829 6.6836 6.77229C8.2706 5.51629 10.1016 4.83429 11.9996 4.83429C13.9086 4.83429 15.7386 5.52629 17.3356 6.79129"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="M19.4476 8.99081C20.1356 9.90481 20.7406 10.9598 21.2496 12.1368C19.2826 16.6938 15.8066 19.4388 11.9996 19.4388C11.1366 19.4388 10.2856 19.2988 9.46759 19.0258"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="M19.887 4.2496L4.11301 20.0236"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
+import { React } from '@nextui-org/react';
+
+export const Hide = ({
+  fill,
+  filled,
+  size,
+  height,
+  width,
+  label,
+  ...props
+}) => {
+  return (
+    <svg
+      data-name="Iconly/Curved/Lock"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || width || 24}
+      height={size || height || 24}
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <g
+        fill="none"
+        stroke={fill}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeMiterlimit={10}
+        strokeWidth={1.5}
+      >
+        <path
+          data-name="Stroke 1"
+          d="M16.471 9.403V7.25a4.561 4.561 0 00-9.121-.016v2.169"
+        />
+        <path data-name="Stroke 3" d="M11.91 14.156v2.221" />
+        <path
+          data-name="Stroke 5"
+          d="M11.91 8.824c-5.745 0-7.66 1.568-7.66 6.271s1.915 6.272 7.66 6.272 7.661-1.568 7.661-6.272-1.921-6.271-7.661-6.271z"
+        />
+      </g>
+    </svg>
+  );
 };

@@ -20,7 +20,9 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
+  const [sections, setSections] = useState([]);
 
+  //useReducer
   const [userConf, setUserConf] = useState({
     email: window.localStorage.getItem('userEmail'),
     name: window.localStorage.getItem('userName'),
@@ -33,14 +35,16 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
-    const userConfiguaration = await getUser(email);
+    const {
+      user: { email: emailLogged },
+    } = await signInWithEmailAndPassword(auth, email, password);
+    const userConfiguration = await getUser(emailLogged);
 
     setUserConf(() => ({
       email: email,
-      name: userConfiguaration.name,
-      color: userConfiguaration.color,
-      image: userConfiguaration.image,
+      name: userConfiguration.name,
+      color: userConfiguration.color,
+      image: userConfiguration.image,
     }));
 
     window.localStorage.setItem('userEmail', email);
@@ -80,6 +84,8 @@ export function AuthProvider({ children }) {
         user,
         userConf,
         setUserConf,
+        sections,
+        setSections,
       }}
     >
       {children}

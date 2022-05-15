@@ -1,5 +1,15 @@
-import { styled } from '@nextui-org/react';
+import { Modal, styled } from '@nextui-org/react';
 import { Content, RadioItem, Trigger } from '@radix-ui/react-dropdown-menu';
+
+export const StyledModal = styled(Modal, {
+  variants: {
+    isDark: {
+      true: {
+        background: '#222',
+      },
+    },
+  },
+});
 
 export const DropdownContent = styled(Content, {
   minWidth: 220,
@@ -62,6 +72,14 @@ export const InputColorContainer = styled('div', {
   margin: '.1rem',
   justifyContent: 'space-between',
   marginBottom: '1rem',
+
+  variants: {
+    isDark: {
+      true: {
+        background: '#3B3B3B',
+      },
+    },
+  },
 });
 
 export const InputColor = styled('input', {
