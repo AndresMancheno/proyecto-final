@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   Link as NextLink,
+  useTheme,
 } from '@nextui-org/react';
 
 import { Hide } from 'icons/Hide';
@@ -18,7 +19,7 @@ import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { MessageError } from './styled';
+import { MessageError, StyledInputPassword, StyledModal } from './styled';
 
 export default function ModalLogin() {
   const {
@@ -40,10 +41,17 @@ export default function ModalLogin() {
       console.log(error);
     }
   };
+  const { isDark } = useTheme();
 
   return (
     <>
-      <Modal preventClose blur aria-labelledby="modal-title" open={true}>
+      <StyledModal
+        preventClose
+        blur
+        aria-labelledby="modal-title"
+        open={true}
+        isDark={isDark}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header>
             <Text size={20}>
@@ -53,15 +61,12 @@ export default function ModalLogin() {
 
           <Modal.Body>
             <Input
-              clearable
               underlined
-              color="primary"
-              fullWidth
-              size="lg"
-              type="email"
+              labelLeft="Correo"
               placeholder="rgl-notes@gmail.com"
+              type="email"
+              name="email"
               aria-label="email"
-              contentLeft={<Mail fill="currentColor" />}
               {...register('email', {
                 required: {
                   value: 'true',
@@ -73,23 +78,18 @@ export default function ModalLogin() {
                 },
               })}
             />
+
             {errors.email && (
               <MessageError>{errors.email.message}</MessageError>
             )}
 
             <Input.Password
-              clearable
               underlined
-              color="primary"
-              fullWidth
-              size="lg"
+              labelLeft="Contraseña"
+              placeholder="rglnotes (6 carácteres mínimo)"
               type="password"
               name="password"
-              placeholder="rglnotes (6 carácteres mínimo)"
-              aria-label="Password"
-              contentLeft={<Password fill="currentColor" />}
-              visibleIcon={<Show fill="currentColor" />}
-              hiddenIcon={<Hide fill="currentColor" />}
+              aria-label="email"
               {...register('password', {
                 required: {
                   value: 'true',
@@ -101,6 +101,7 @@ export default function ModalLogin() {
                 },
               })}
             />
+
             {errors.password && (
               <MessageError>{errors.password.message}</MessageError>
             )}
@@ -113,12 +114,19 @@ export default function ModalLogin() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button css={{ margin: '0 auto' }} type="submit">
+            <Button
+              css={{
+                margin: '0 auto',
+                background: '#1A5D75',
+                color: 'white',
+              }}
+              type="submit"
+            >
               ¡Bienvenido!
             </Button>
           </Modal.Footer>
         </form>
-      </Modal>
+      </StyledModal>
     </>
   );
 }

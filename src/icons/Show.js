@@ -1,30 +1,55 @@
-export const Show = () => {
-	return (
-		<svg
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				fillRule="evenodd"
-				clipRule="evenodd"
-				d="M15.1615 12.0531C15.1615 13.7991 13.7455 15.2141 11.9995 15.2141C10.2535 15.2141 8.8385 13.7991 8.8385 12.0531C8.8385 10.3061 10.2535 8.89108 11.9995 8.89108C13.7455 8.89108 15.1615 10.3061 15.1615 12.0531Z"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-			<path
-				fillRule="evenodd"
-				clipRule="evenodd"
-				d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48888 15.806 4.75089 11.998 4.75089H12.002C8.194 4.75089 4.711 7.48888 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z"
-				stroke="#200E32"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
+import { React } from '@nextui-org/react';
+
+export const Show = ({
+  fill,
+  filled,
+  size,
+  height,
+  width,
+  label,
+  ...props
+}) => {
+  return (
+    <svg
+      data-name="Iconly/Curved/Lock"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || width || 24}
+      height={size || height || 24}
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <g transform="translate(3.5 2)">
+        <path
+          d="M8.927,3.237A4.562,4.562,0,0,0,0,4.484V6.653"
+          transform="translate(3.849 0.75)"
+          fill="none"
+          stroke={fill}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="10"
+          strokeWidth={1.5}
+        />
+        <path
+          d="M.5,0V2.221"
+          transform="translate(7.91 12.156)"
+          fill="none"
+          stroke={fill}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="10"
+          strokeWidth={1.5}
+        />
+        <path
+          d="M7.66,0C1.915,0,0,1.568,0,6.271s1.915,6.272,7.66,6.272,7.661-1.568,7.661-6.272S13.406,0,7.66,0Z"
+          transform="translate(0.75 6.824)"
+          fill="none"
+          stroke={fill}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="10"
+          strokeWidth={1.5}
+        />
+      </g>
+    </svg>
+  );
 };

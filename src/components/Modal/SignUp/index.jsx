@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   Link as NextLink,
+  useTheme,
 } from '@nextui-org/react';
 
 import { Hide } from 'icons/Hide';
@@ -15,7 +16,7 @@ import { User } from 'icons/User';
 
 import { Link } from 'react-router-dom';
 
-import { MessageError } from './styled';
+import { MessageError, StyledModal } from './styled';
 
 import { useAuth } from 'context/authContext';
 import { addUsers } from 'db/users';
@@ -48,10 +49,17 @@ export default function ModalSignUp() {
       console.log(error);
     }
   };
+  const { isDark } = useTheme();
 
   return (
     <>
-      <Modal preventClose blur aria-labelledby="modal-title" open={true}>
+      <StyledModal
+        preventClose
+        blur
+        aria-labelledby="modal-title"
+        open={true}
+        isDark={isDark}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header>
             <Text size={20}>
@@ -61,16 +69,12 @@ export default function ModalSignUp() {
 
           <Modal.Body>
             <Input
-              clearable
               underlined
-              color="primary"
-              fullWidth
-              size="lg"
+              labelLeft="Nombre"
+              placeholder="RGL Notes"
               type="userName"
               name="userName"
-              placeholder="RGL Notes"
-              aria-label="User Name"
-              contentLeft={<User fill="currentColor" />}
+              aria-label="userName"
               {...register('userName', {
                 required: {
                   value: 'true',
@@ -78,21 +82,18 @@ export default function ModalSignUp() {
                 },
               })}
             />
+
             {errors.userName && (
               <MessageError>{errors.userName.message}</MessageError>
             )}
 
             <Input
-              clearable
               underlined
-              color="primary"
-              fullWidth
-              size="lg"
+              labelLeft="Correo"
+              placeholder="rgl-notes@gmail.com"
               type="email"
               name="email"
-              placeholder="rgl-notes@gmail.com"
-              aria-label="Email"
-              contentLeft={<Mail fill="currentColor" />}
+              aria-label="email"
               {...register('email', {
                 required: {
                   value: 'true',
@@ -104,23 +105,18 @@ export default function ModalSignUp() {
                 },
               })}
             />
+
             {errors.email && (
               <MessageError>{errors.email.message}</MessageError>
             )}
 
             <Input.Password
-              clearable
               underlined
-              color="primary"
-              fullWidth
-              size="lg"
+              labelLeft="Contraseña"
+              placeholder="rglnotes (6 carácteres mínimo)"
               type="password"
               name="password"
-              placeholder="rglnotes (6 carácteres mínimo)"
-              aria-label="Password"
-              contentLeft={<Password fill="currentColor" />}
-              visibleIcon={<Show fill="currentColor" />}
-              hiddenIcon={<Hide fill="currentColor" />}
+              aria-label="email"
               {...register('password', {
                 required: {
                   value: 'true',
@@ -132,6 +128,7 @@ export default function ModalSignUp() {
                 },
               })}
             />
+
             {errors.password && (
               <MessageError>{errors.password.message}</MessageError>
             )}
@@ -144,12 +141,19 @@ export default function ModalSignUp() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button css={{ margin: '0 auto' }} type="submit">
+            <Button
+              css={{
+                margin: '0 auto',
+                background: '#1A5D75',
+                color: 'white',
+              }}
+              type="submit"
+            >
               ¡Regístrate!
             </Button>
           </Modal.Footer>
         </form>
-      </Modal>
+      </StyledModal>
     </>
   );
 }
