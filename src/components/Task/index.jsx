@@ -1,5 +1,6 @@
-import { Spacer } from '@nextui-org/react';
-import { useState } from 'react';
+import { Spacer, useTheme } from '@nextui-org/react';
+import { getUserTasks, toggleTaskInDb } from 'db/tasks';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/authContext';
 
 import { TaskBanner } from './Banner';
@@ -9,43 +10,48 @@ import { StyledTaskTable } from './styled';
 import { VisibilityControl } from './VisibilityControl';
 
 export default function Task() {
-  const { userConf } = useAuth();
+  let contador = 0;
+  const { userConf, tasks, setTasks } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(true);
 
-  const [taskItems, setTaskItems] = useState([
-    { name: 'Task One', done: false },
-    { name: 'Task Two', done: false },
-    { name: 'Task Three', done: false },
-    { name: 'Task Four', done: false },
-  ]);
+  useEffect(() => {
+    getUserTasks('W1CpRv3MCAQjIUppyumX').then((s) => setTasks(s));
+  }, [userConf.email]);
 
   const createNewTask = (taskName) => {
-    if (!taskItems.find((t) => t.name === taskName)) {
-      setTaskItems([...taskItems, { name: taskName, done: false }]);
+    if (!tasks.find((t) => t.description === taskName)) {
+      setTasks([...tasks, { description: taskName, done: false }]);
     }
   };
 
-  const toggleTask = (task) => {
-    setTaskItems(
-      taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t))
+  const toggleTask = async (task) => {
+    await toggleTaskInDb(task, 'W1CpRv3MCAQjIUppyumX');
+    setTasks(
+      tasks.map((t) =>
+        t.description === task.description ? { ...t, isDone: !t.isDone } : t
+      )
     );
   };
 
-  const taskTableRows = (doneValue) =>
-    taskItems
-      .filter((task) => task.done === doneValue)
+  const taskTableRows = (doneValue) => {
+    contador++;
+    return tasks
+      .filter((task) => task.isDone === doneValue)
       .map((task) => (
-        <TaskRow key={task.name} task={task} toggleTask={toggleTask} />
+        <TaskRow key={contador} task={task} toggleTask={toggleTask} />
       ));
+  };
+
+  const { isDark } = useTheme();
 
   return (
     <>
-      <TaskBanner userName={userConf.name} taskItems={taskItems} />
+      <TaskBanner userName={userConf.name} taskItems={tasks} />
       <Spacer y={2} />
       <TaskCreator callBack={createNewTask} />
 
-      <StyledTaskTable>
+      <StyledTaskTable isDark={isDark}>
         <thead>
           <tr>
             <th>Descripción</th>
@@ -65,7 +71,7 @@ export default function Task() {
       </div>
 
       {showCompleted && (
-        <StyledTaskTable>
+        <StyledTaskTable isDark={isDark}>
           <thead>
             <tr>
               <th>Descripción</th>

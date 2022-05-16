@@ -1,6 +1,6 @@
 import { Input, styled } from '@nextui-org/react';
 
-export const FlexContainer = styled('div', {
+export const FormContainer = styled('form', {
   display: 'flex',
   justifyContent: 'center',
 });
@@ -18,7 +18,6 @@ export const SendButton = styled('button', {
   width: '30px',
   height: '30px',
   dflex: 'center',
-  bg: '$primary',
   borderRadius: '$rounded',
   cursor: 'pointer',
 
@@ -28,4 +27,9 @@ export const SendButton = styled('button', {
       transition: '.4s ease-in-out',
     },
   },
+});
+export const MessageError = styled('span', {
+  fontSize: '12px',
+  textAlign: 'center',
+  color: '$error',
 });

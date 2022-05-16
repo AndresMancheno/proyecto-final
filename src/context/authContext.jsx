@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
   const [sections, setSections] = useState([]);
   const [lists, setLists] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   //useReducer
   const [userConf, setUserConf] = useState({
@@ -89,6 +90,8 @@ export function AuthProvider({ children }) {
         setSections,
         lists,
         setLists,
+        tasks,
+        setTasks,
       }}
     >
       {children}

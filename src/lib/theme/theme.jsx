@@ -1,6 +1,7 @@
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import App from '../../App';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { Toaster } from 'react-hot-toast';
 
 const lightTheme = createTheme({
   type: 'light',
@@ -50,6 +51,7 @@ export const Theme = () => {
       }}
     >
       <NextUIProvider>
+        <Toaster position="top-center" reverseOrder={false} gutter="3" />
         <App />
       </NextUIProvider>
     </NextThemesProvider>
