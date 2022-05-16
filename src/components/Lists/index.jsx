@@ -13,9 +13,12 @@ export default function List() {
   const { userConf, lists, setLists } = useAuth();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    getUserLists('7iBJJWRC3i1EcD3mmg6h').then((s) => setLists(s));
+  const sectionId = window.localStorage.getItem('sectionId');
+
+  useEffect(async () => {
+    await getUserLists(sectionId).then((s) => setLists(s));
   }, [userConf.email]);
+
   return (
     <>
       <div>
@@ -34,7 +37,7 @@ export default function List() {
         <GridListContainer>
           {lists &&
             lists.map((list) => {
-              return <CreateCardList key={lists.name} list={list} />;
+              return <CreateCardList key={list.id} list={list} />;
             })}
         </GridListContainer>
       </div>

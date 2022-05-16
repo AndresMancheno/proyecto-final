@@ -12,8 +12,8 @@ import {
 
 const usersDB = collection(db, 'Users');
 
-export function addUsers(userName, email) {
-  addDoc(usersDB, {
+export async function addUsers(userName, email) {
+  await addDoc(usersDB, {
     name: userName,
     email: email,
     image: '',

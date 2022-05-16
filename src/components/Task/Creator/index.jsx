@@ -22,6 +22,7 @@ export const TaskCreator = ({ callBack }) => {
     formState: { errors },
   } = useForm();
   const { isDark } = useTheme();
+  const listId = window.localStorage.getItem('listId');
 
   const onSubmit = (value) => createNewTask(value.task);
   const { tasks, setTasks } = useAuth();
@@ -39,7 +40,7 @@ export const TaskCreator = ({ callBack }) => {
 
   const createNewTask = async (value) => {
     if (!tasks.find((t) => t.description === value)) {
-      await addTask(value);
+      await addTask(value, listId);
       if (isDark) {
         toast.success('Tarea añadida', {
           style: { color: '#fff', background: '#333' },
@@ -57,7 +58,7 @@ export const TaskCreator = ({ callBack }) => {
       }
     }
 
-    getUserTasks('W1CpRv3MCAQjIUppyumX').then((s) => setTasks(s));
+    getUserTasks(listId).then((s) => setTasks(s));
 
     callBack(value);
   };

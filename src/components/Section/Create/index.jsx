@@ -1,13 +1,26 @@
 import { Button, Card, Divider, Row, Text } from '@nextui-org/react';
+import { useNavigate } from 'react-router-dom';
 import { CardSection } from './styled';
 
 export function CreateCardSection({ section }) {
+  const navigate = useNavigate();
+
+  const redirectToList = async (id) => {
+    window.localStorage.setItem('sectionId', id);
+    navigate('/list');
+  };
+
   return (
     <div>
       <CardSection css={{ background: section.color }}>
         <Card.Header>
           <Row justify="space-between" align="center">
-            <Text h3 color="white">
+            <Text
+              h3
+              color="white"
+              css={{ cursor: 'pointer' }}
+              onClick={() => redirectToList(section.id)}
+            >
               {section.name}
             </Text>
             <Button size="xs" color="error">

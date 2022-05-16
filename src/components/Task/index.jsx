@@ -10,13 +10,15 @@ import { StyledTaskTable } from './styled';
 import { VisibilityControl } from './VisibilityControl';
 
 export default function Task() {
-  let contador = 0;
   const { userConf, tasks, setTasks } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(true);
 
+  const listId = window.localStorage.getItem('listId');
+  const listName = window.localStorage.getItem('listName');
+
   useEffect(() => {
-    getUserTasks('W1CpRv3MCAQjIUppyumX').then((s) => setTasks(s));
+    getUserTasks(listId).then((s) => setTasks(s));
   }, [userConf.email]);
 
   const createNewTask = (taskName) => {
@@ -26,7 +28,7 @@ export default function Task() {
   };
 
   const toggleTask = async (task) => {
-    await toggleTaskInDb(task, 'W1CpRv3MCAQjIUppyumX');
+    await toggleTaskInDb(task, listId);
     setTasks(
       tasks.map((t) =>
         t.description === task.description ? { ...t, isDone: !t.isDone } : t
@@ -35,11 +37,10 @@ export default function Task() {
   };
 
   const taskTableRows = (doneValue) => {
-    contador++;
     return tasks
       .filter((task) => task.isDone === doneValue)
       .map((task) => (
-        <TaskRow key={contador} task={task} toggleTask={toggleTask} />
+        <TaskRow key={task.id} task={task} toggleTask={toggleTask} />
       ));
   };
 
@@ -47,7 +48,7 @@ export default function Task() {
 
   return (
     <>
-      <TaskBanner userName={userConf.name} taskItems={tasks} />
+      <TaskBanner listName={listName} taskItems={tasks} />
       <Spacer y={2} />
       <TaskCreator callBack={createNewTask} />
 

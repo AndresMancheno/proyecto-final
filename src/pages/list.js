@@ -1,12 +1,12 @@
 import Header from 'components/Header';
+import List from 'components/Lists';
 import { ProtectedRoute } from 'components/ProtectedRoute';
-import Section from 'components/Section';
 
-export default function Home() {
+export default function Lists() {
   return (
     <ProtectedRoute>
       <Header />
-      <Section />
+      <List />
     </ProtectedRoute>
   );
 }

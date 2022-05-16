@@ -40,7 +40,7 @@ export default function ModalSignUp() {
       await signUp(values.email, values.password);
 
       try {
-        addUsers(values.userName, values.email);
+        await addUsers(values.userName, values.email);
         navigate('/login');
       } catch (error) {
         console.log(error);

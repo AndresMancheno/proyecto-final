@@ -11,35 +11,39 @@ import { db } from 'lib/firebase/firebase';
 
 const tasksDB = collection(db, 'Tasks');
 
-export async function addTask(value) {
+export async function addTask(value, listId) {
   addDoc(tasksDB, {
     description: value,
     isDone: false,
-    listID: 'W1CpRv3MCAQjIUppyumX',
+    listID: listId,
   });
 }
 
-export async function getUserTasks(listID = 'W1CpRv3MCAQjIUppyumX') {
+export async function getUserTasks(listId) {
   try {
     const tasksQuery = query(
       collection(db, 'Tasks'),
-      where('listID', '==', listID)
+      where('listID', '==', listId)
     );
 
     const querySnapshot = await getDocs(tasksQuery);
     return querySnapshot.docs.map((doc) => {
-      return doc.data();
+      return {
+        id: doc.id,
+        description: doc.data().description,
+        isDone: doc.data().isDone,
+        listID: doc.data().listID,
+      };
     });
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function toggleTaskInDb(task, listID = 'W1CpRv3MCAQjIUppyumX') {
-  console.log(task);
+export async function toggleTaskInDb(task, listId) {
   const tasksQuery = query(
     collection(db, 'Tasks'),
-    where('listID', '==', 'W1CpRv3MCAQjIUppyumX'),
+    where('listID', '==', listId),
     where('description', '==', task.description)
   );
 

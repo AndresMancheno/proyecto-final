@@ -20,7 +20,12 @@ export async function getUserSections(email) {
 
     const querySnapshot = await getDocs(sectionQuery);
     return querySnapshot.docs.map((doc) => {
-      return doc.data();
+      return {
+        id: doc.id,
+        usersID: doc.data().usersID,
+        name: doc.data().name,
+        color: doc.data().color,
+      };
     });
   } catch (error) {
     console.log(error);

@@ -13,6 +13,7 @@ import {
 
 export default function AddList({ open, setOpen }) {
   const { userConf, setLists } = useAuth();
+  const sectionId = window.localStorage.getItem('sectionId');
 
   const {
     handleSubmit,
@@ -24,8 +25,8 @@ export default function AddList({ open, setOpen }) {
 
   const addListToFirebase = async (values) => {
     try {
-      await addList(values, userConf.email);
-      getUserLists('7iBJJWRC3i1EcD3mmg6h').then((s) => setLists(s));
+      await addList(values, sectionId);
+      getUserLists(sectionId).then((s) => setLists(s));
       setOpen(false);
     } catch (error) {
       console.log(error);

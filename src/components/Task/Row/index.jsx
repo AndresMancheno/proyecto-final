@@ -1,5 +1,5 @@
-export const TaskRow = ({ key, task, toggleTask }) => (
-  <tr key={key} style={{ lineHeight: '3rem' }}>
+export const TaskRow = ({ task, toggleTask }) => (
+  <tr style={{ lineHeight: '3rem' }}>
     <td>{task.description}</td>
     <td>
       <input

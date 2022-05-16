@@ -12,7 +12,6 @@ import {
 
 export default function AddSection({ open, setOpen }) {
   const { userConf, setSections } = useAuth();
-
   const {
     handleSubmit,
     register,

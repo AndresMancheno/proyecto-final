@@ -9,13 +9,13 @@ import { CreateCardSection } from './Create';
 import { GridSectionContainer, TitleSectionContainer } from './styled';
 
 export default function Section() {
-  let numberSection = 0;
   const { userConf, sections, setSections } = useAuth();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getUserSections(userConf.email).then((s) => setSections(s));
   }, [userConf.email]);
+
   return (
     <>
       <div>
@@ -34,10 +34,7 @@ export default function Section() {
         <GridSectionContainer>
           {sections &&
             sections.map((section) => {
-              numberSection++;
-              return (
-                <CreateCardSection key={numberSection} section={section} />
-              );
+              return <CreateCardSection key={section.id} section={section} />;
             })}
         </GridSectionContainer>
       </div>

@@ -1,12 +1,12 @@
 import Header from 'components/Header';
 import { ProtectedRoute } from 'components/ProtectedRoute';
-import Section from 'components/Section';
+import Task from 'components/Task';
 
-export default function Home() {
+export default function Tasks() {
   return (
     <ProtectedRoute>
       <Header />
-      <Section />
+      <Task />
     </ProtectedRoute>
   );
 }

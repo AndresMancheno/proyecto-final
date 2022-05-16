@@ -32,8 +32,8 @@ export function AuthProvider({ children }) {
     image: window.localStorage.getItem('userImage'),
   });
 
-  const signUp = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password);
+  const signUp = async (email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password);
   };
 
   const login = async (email, password) => {

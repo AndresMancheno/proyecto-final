@@ -8,18 +8,13 @@ import {
   useTheme,
 } from '@nextui-org/react';
 
-import { Hide } from 'icons/Hide';
-import { Mail } from 'icons/Mail';
-import { Password } from 'icons/Password';
-import { Show } from 'icons/Show';
-
 import { Link } from 'react-router-dom';
 
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { MessageError, StyledInputPassword, StyledModal } from './styled';
+import { MessageError, StyledModal } from './styled';
 
 export default function ModalLogin() {
   const {
