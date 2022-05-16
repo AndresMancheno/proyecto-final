@@ -1,5 +1,4 @@
 import { Modal, styled } from '@nextui-org/react';
-import { Link } from 'react-router-dom';
 
 export const StyledModal = styled(Modal, {
   variants: {
@@ -9,10 +8,6 @@ export const StyledModal = styled(Modal, {
       },
     },
   },
-});
-
-export const CenterButton = styled(Link, {
-  margin: '0 auto !important',
 });
 
 export const MessageError = styled('span', {

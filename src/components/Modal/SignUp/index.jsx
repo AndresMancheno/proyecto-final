@@ -8,12 +8,6 @@ import {
   useTheme,
 } from '@nextui-org/react';
 
-import { Hide } from 'icons/Hide';
-import { Mail } from 'icons/Mail';
-import { Password } from 'icons/Password';
-import { Show } from 'icons/Show';
-import { User } from 'icons/User';
-
 import { Link } from 'react-router-dom';
 
 import { MessageError, StyledModal } from './styled';
@@ -22,6 +16,7 @@ import { useAuth } from 'context/authContext';
 import { addUsers } from 'db/users';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 export default function ModalSignUp() {
   const {
@@ -32,6 +27,9 @@ export default function ModalSignUp() {
 
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const { isDark } = useTheme();
+
+  const [errorInSignIn, setErrorInSignIn] = useState(false);
 
   const onSubmit = (values) => signUpUser(values);
 
@@ -41,15 +39,15 @@ export default function ModalSignUp() {
 
       try {
         await addUsers(values.userName, values.email);
+        setErrorInSignIn(false);
         navigate('/login');
       } catch (error) {
         console.log(error);
       }
     } catch (error) {
-      console.log(error);
+      setErrorInSignIn(true);
     }
   };
-  const { isDark } = useTheme();
 
   return (
     <>
@@ -113,7 +111,7 @@ export default function ModalSignUp() {
             <Input.Password
               underlined
               labelLeft="Contraseña"
-              placeholder="rglnotes (6 carácteres mínimo)"
+              placeholder="rglnotes"
               type="password"
               name="password"
               aria-label="email"
@@ -133,6 +131,9 @@ export default function ModalSignUp() {
               <MessageError>{errors.password.message}</MessageError>
             )}
 
+            {errorInSignIn === true && (
+              <MessageError>Usuario ya registrado</MessageError>
+            )}
             <Row justify="flex-end">
               <Link to="/login">
                 <div as={NextLink}>Volver al login</div>

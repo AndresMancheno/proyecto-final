@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { MessageError, StyledModal } from './styled';
+import { useState } from 'react';
 
 export default function ModalLogin() {
   const {
@@ -23,20 +24,23 @@ export default function ModalLogin() {
     formState: { errors },
   } = useForm();
 
+  const { isDark } = useTheme();
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const [errorInLogging, setErrorInLogging] = useState(false);
 
   const onSubmit = (values) => logUser(values);
 
   const logUser = async (values) => {
     try {
       await login(values.email, values.password);
+      setErrorInLogging(false);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      setErrorInLogging(true);
     }
   };
-  const { isDark } = useTheme();
 
   return (
     <>
@@ -99,6 +103,10 @@ export default function ModalLogin() {
 
             {errors.password && (
               <MessageError>{errors.password.message}</MessageError>
+            )}
+
+            {errorInLogging === true && (
+              <MessageError>Usuario no registrado</MessageError>
             )}
 
             <Row justify="flex-end">
