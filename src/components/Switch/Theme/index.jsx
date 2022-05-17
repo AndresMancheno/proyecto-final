@@ -11,10 +11,11 @@ export default function ChangeTheme() {
     <StyledSwitch
       css={{ marginRight: '2rem' }}
       checked={isDark}
-      color="warning"
+      color="secondary"
+      bordered
       onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
       iconOff={<SunIcon />}
-      iconOn={<MoonIcon color="yellow" />}
+      iconOn={<MoonIcon />}
       shadow={isDark}
     />
   );
