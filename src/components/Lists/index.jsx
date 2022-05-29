@@ -9,13 +9,23 @@ import { motion } from 'framer-motion';
 
 import { GreetingUser, GridListContainer, TitleList } from './styled';
 import { TaskTable } from 'components/Table';
+import { OrderByTag } from 'components/Tag';
 
 export default function List() {
   const { userConf, lists, setLists } = useAuth();
+  const [tags, setTags] = useState([]);
+  const [listFiltered, setListFiltered] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    getUserLists(userConf.email).then((lists) => setLists(lists));
+    getUserLists(userConf.email).then((lists) => {
+      setLists(lists);
+      const userTags = lists.map((list) => list.tag);
+
+      const filtredTags = new Set(userTags);
+
+      setTags([...filtredTags]);
+    });
   }, [userConf.email]);
 
   return (
@@ -44,14 +54,19 @@ export default function List() {
             })}
         </GridListContainer>
 
-        <TitleList>
-          <Text h3> Tus tareas para esta semana </Text>
-        </TitleList>
-        <TaskTable />
+        {lists && (
+          <>
+            <TitleList>
+              <Text h3> Tus tareas para esta semana </Text>
+            </TitleList>
+            <TaskTable />
 
-        <TitleList>
-          <Text h3>Listas ordenadas por el tag</Text>
-        </TitleList>
+            <TitleList>
+              <Text h3>Listas ordenadas por el tag</Text>
+            </TitleList>
+            <OrderByTag lists={lists} tags={tags} />
+          </>
+        )}
       </div>
 
       <AddList open={open} setOpen={setOpen} />

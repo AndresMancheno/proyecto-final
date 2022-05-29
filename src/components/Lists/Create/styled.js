@@ -1,16 +1,20 @@
 import { Card, styled } from '@nextui-org/react';
 
 export const CardList = styled(Card, {
-  height: '350px',
+  maxHeight: '350px',
+  minHeight: '350px',
   margin: '0 auto',
 
   '@sm': {
-    height: '350px',
+    maxHeight: '350px',
+    minHeight: '350px',
   },
 
   '@md': {
-    height: '350px',
-    width: '400px',
+    minHeight: '350px',
+    maxHeight: '350px',
+    minWidth: '400px',
+    maxWidth: '400px',
   },
 });
 

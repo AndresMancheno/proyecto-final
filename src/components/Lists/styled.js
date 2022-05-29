@@ -33,7 +33,7 @@ export const GridListContainer = styled('div', {
     gridTemplateColumns: 'repeat(3,1fr)',
   },
   '@lg': {
-    gridTemplateColumns: 'repeat(4,1fr)',
+    gridTemplateColumns: 'repeat(3,1fr)',
   },
 });
 
