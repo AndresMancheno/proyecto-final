@@ -1,6 +1,8 @@
 import { styled, Text } from '@nextui-org/react';
 
 export const HeaderContainer = styled('div', {
+  background:
+    'linear-gradient(90deg, rgba(26,83,92,1) 0%, rgba(76,201,192,1) 26%, rgba(55,203,192,1) 77%)',
   backgroundColor: '$darkBlue',
   display: 'flex',
   alignItems: 'end',

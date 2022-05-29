@@ -1,4 +1,12 @@
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 import { db } from 'lib/firebase/firebase';
 
 const listsDB = collection(db, 'Lists');
@@ -27,6 +35,29 @@ export async function getUserLists(sectionId) {
         color: doc.data().color,
       };
     });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function removeListFromDb(idList) {
+  try {
+    const taskQuery = query(
+      collection(db, 'Tasks'),
+      where('listID', '==', idList)
+    );
+
+    const taskSnapshot = await getDocs(taskQuery);
+
+    try {
+      taskSnapshot.docs.map(async (taskDoc) => {
+        await deleteDoc(doc(db, 'Tasks', taskDoc.id));
+      });
+
+      await deleteDoc(doc(db, 'Lists', idList));
+    } catch (e) {
+      console.log(e);
+    }
   } catch (error) {
     console.log(error);
   }

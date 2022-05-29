@@ -60,6 +60,10 @@ export default function AddList({ open, setOpen }) {
                 value: 'true',
                 message: 'Campo requerido',
               },
+              maxLength: {
+                value: 15,
+                message: 'El nombre tiene que tener menos de 15 letras :(',
+              },
             })}
           />
           {errors.name && <MessageError>{errors.name.message}</MessageError>}
