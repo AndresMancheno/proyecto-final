@@ -1,16 +1,37 @@
-import { Card, styled } from '@nextui-org/react';
+import { Card, Row, styled } from '@nextui-org/react';
 
 export const CardSection = styled(Card, {
-  minHeight: '200px',
+  transform: 'scale(.95)',
+  minHeight: '300px',
+  minWidth: '100px',
   margin: '0 auto',
 
   '@sm': {
-    minHeight: '200px',
-    maxHeight: '250px',
+    height: '300px',
+    width: '300px',
   },
 
-  '@md': {
-    minHeight: '250px',
-    width: '300px',
+  '&:hover': {
+    transform: 'scale(1)',
+  },
+});
+
+export const StyledRow = styled(Row, {
+  display: 'block',
+
+  '@xs': {
+    display: 'flex',
+  },
+});
+
+export const UnorderedList = styled('ul', {
+  listStyle: 'circle',
+});
+
+export const ListElement = styled('li', {
+  cursor: 'pointer',
+
+  '&:hover': {
+    fontWeight: 'bold',
   },
 });
