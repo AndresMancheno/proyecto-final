@@ -1,6 +1,6 @@
 import { useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
-import { getUserSections } from 'db/sections';
+// import { getUserSections } from 'db/sections';
 import { addTask, getUserTasks } from 'db/tasks';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

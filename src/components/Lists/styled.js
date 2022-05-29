@@ -1,4 +1,4 @@
-import { styled } from '@nextui-org/react';
+import { styled, Text } from '@nextui-org/react';
 
 export const TitleListContainer = styled('div', {
   marginTop: '2rem',
@@ -28,4 +28,26 @@ export const GridListContainer = styled('div', {
   '@lg': {
     gridTemplateColumns: 'repeat(4,1fr)',
   },
+});
+
+export const IconButton = styled('button', {
+  dflex: 'center',
+  border: 'none',
+  outline: 'none',
+  cursor: 'pointer',
+  padding: '0',
+  margin: '0',
+  bg: 'transparent',
+  transition: '$default',
+  '&:hover': {
+    opacity: '0.8',
+  },
+  '&:active': {
+    opacity: '0.6',
+  },
+});
+export const GreetingUser = styled(Text, {
+  textAlign: 'center',
+  marginTop: '1rem !important',
+  marginBottom: '2rem !important',
 });

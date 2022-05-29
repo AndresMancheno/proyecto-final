@@ -25,12 +25,6 @@ export const HeaderItemContainer = styled('div', {
   },
 });
 
-export const GreetingUser = styled(Text, {
-  textAlign: 'center',
-  marginTop: '1rem !important',
-  marginBottom: '2rem !important',
-});
-
 export const RightHeaderSide = styled('div', {
   display: 'flex',
   alignItems: 'center',

@@ -1,7 +1,6 @@
 import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { addList, getUserLists } from 'db/lists';
-import { addSection, getUserSections } from 'db/sections';
 import { useForm } from 'react-hook-form';
 import {
   InputColor,
@@ -13,7 +12,6 @@ import {
 
 export default function AddList({ open, setOpen }) {
   const { userConf, setLists } = useAuth();
-  const sectionId = window.localStorage.getItem('sectionId');
 
   const {
     handleSubmit,
@@ -25,8 +23,8 @@ export default function AddList({ open, setOpen }) {
 
   const addListToFirebase = async (values) => {
     try {
-      await addList(values, sectionId);
-      getUserLists(sectionId).then((s) => setLists(s));
+      await addList(values, userConf.email);
+      getUserLists(userConf.email).then((s) => setLists(s));
       setOpen(false);
     } catch (error) {
       console.log(error);

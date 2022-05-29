@@ -20,7 +20,6 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
-  const [sections, setSections] = useState([]);
   const [lists, setLists] = useState([]);
   const [tasks, setTasks] = useState([]);
 
@@ -86,8 +85,6 @@ export function AuthProvider({ children }) {
         user,
         userConf,
         setUserConf,
-        sections,
-        setSections,
         lists,
         setLists,
         tasks,

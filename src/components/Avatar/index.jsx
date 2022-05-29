@@ -1,8 +1,15 @@
 import { useAuth } from 'context/authContext';
+import { pickTextColorBasedOnBgColor } from 'lib/theme/theme';
+import { useEffect, useState } from 'react';
 import { StyledAvatar } from './styled';
 
 export default function IconUser() {
   const { userConf } = useAuth();
+  const [textColor, setTextColor] = useState('#fff');
+
+  useEffect(() => {
+    setTextColor(pickTextColorBasedOnBgColor(userConf.color));
+  }, [userConf.color, userConf.email]);
 
   return (
     <StyledAvatar
@@ -15,6 +22,10 @@ export default function IconUser() {
       css={{
         '& .nextui-avatar-bg': {
           background: userConf.color,
+        },
+
+        '& .nextui-avatar-text': {
+          color: `${textColor} !important`,
         },
       }}
     />

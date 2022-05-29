@@ -2,26 +2,29 @@ import { Button, Text } from '@nextui-org/react';
 import AddList from 'components/Modal/List';
 import { useAuth } from 'context/authContext';
 import { getUserLists } from 'db/lists';
-import { getUserSections } from 'db/sections';
 import { Add } from 'icons/Add';
 import { useEffect, useState } from 'react';
 import { CreateCardList } from './Create';
+import { motion } from 'framer-motion';
 
-import { GridListContainer, TitleListContainer } from './styled';
+import { GreetingUser, GridListContainer, TitleListContainer } from './styled';
+import { TaskTable } from 'components/Table';
 
 export default function List() {
   const { userConf, lists, setLists } = useAuth();
   const [open, setOpen] = useState(false);
 
-  const sectionId = window.localStorage.getItem('sectionId');
-
   useEffect(async () => {
-    await getUserLists(sectionId).then((s) => setLists(s));
+    getUserLists(userConf.email).then((lists) => setLists(lists));
   }, [userConf.email]);
 
   return (
     <>
       <div>
+        <motion.div animate={{ y: 10 }} transition={{ duration: 0.5 }}>
+          <GreetingUser h2>Bienvenid@ {userConf.name}</GreetingUser>
+        </motion.div>
+
         <TitleListContainer>
           <Text h3> Tus listas </Text>
           <Button
@@ -41,6 +44,13 @@ export default function List() {
             })}
         </GridListContainer>
       </div>
+
+      <TitleListContainer>
+        <Text h3> Tus tareas para hoy </Text>
+        <TaskTable />
+      </TitleListContainer>
+
+      <TitleListContainer>Listas ordenadas por el tag</TitleListContainer>
 
       <AddList open={open} setOpen={setOpen} />
     </>

@@ -11,27 +11,29 @@ import { db } from 'lib/firebase/firebase';
 
 const listsDB = collection(db, 'Lists');
 
-export async function addList(values, sectionId) {
+export async function addList(values, userID) {
   addDoc(listsDB, {
+    userID: userID,
     name: values.name,
+    tag: 'tag',
     color: values.color,
-    sectionID: sectionId,
   });
 }
 
-export async function getUserLists(sectionId) {
+export async function getUserLists(userID) {
   try {
     const listsQuery = query(
       collection(db, 'Lists'),
-      where('sectionID', '==', sectionId)
+      where('userID', '==', userID)
     );
 
     const querySnapshot = await getDocs(listsQuery);
     return querySnapshot.docs.map((doc) => {
       return {
         id: doc.id,
-        sectionID: doc.data().sectionID,
+        userID: userID,
         name: doc.data().name,
+        tag: 'tag',
         color: doc.data().color,
       };
     });
