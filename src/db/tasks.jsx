@@ -46,25 +46,26 @@ export async function getUserTasks(listId) {
   }
 }
 
-export async function toggleTaskInDb(task, listId) {
+export async function toggleTaskInDb(taskDescription, isDone, listId) {
   const tasksQuery = query(
     collection(db, 'Tasks'),
     where('listID', '==', listId),
-    where('description', '==', task.description)
+    where('description', '==', taskDescription)
   );
 
   const querySnapshot = await getDocs(tasksQuery);
+
   let taskID;
   querySnapshot.forEach((doc) => {
     taskID = doc.id;
   });
 
   const userRef = doc(db, 'Tasks', taskID);
-
   await updateDoc(userRef, {
-    isDone: !task.isDone,
+    isDone: !isDone,
   });
 }
+
 export async function updateProrityInDB(task, listId) {
   const tasksQuery = query(
     collection(db, 'Tasks'),

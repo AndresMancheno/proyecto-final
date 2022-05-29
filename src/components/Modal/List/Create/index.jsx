@@ -16,6 +16,7 @@ export default function AddList({ open, setOpen }) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -26,12 +27,12 @@ export default function AddList({ open, setOpen }) {
       await addList(values, userConf.email);
       getUserLists(userConf.email).then((s) => setLists(s));
       setOpen(false);
+      reset();
     } catch (error) {
       console.log(error);
     }
   };
   const { isDark } = useTheme();
-
   return (
     <StyledModal
       open={open}
@@ -66,10 +67,26 @@ export default function AddList({ open, setOpen }) {
           />
           {errors.name && <MessageError>{errors.name.message}</MessageError>}
 
-          <InputColorContainer>
+          <StyledInput
+            placeholder="Nombre del tag"
+            name="tag"
+            {...register('tag', {
+              required: {
+                value: 'true',
+                message: 'Campo requerido',
+              },
+              maxLength: {
+                value: 10,
+                message:
+                  'El nombre del tag tiene que tener menos de 10 letras :(',
+              },
+            })}
+          />
+          {errors.tag && <MessageError>{errors.tag.message}</MessageError>}
+
+          <InputColorContainer backgroundDark={isDark}>
             <label>Selecciona un color</label>
             <InputColor
-              defaultValue={userConf.color}
               placeholder="Enlace de la imágen"
               name="color"
               type="color"

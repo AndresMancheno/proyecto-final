@@ -29,7 +29,7 @@ export default function Task() {
   };
 
   const toggleTask = async (task) => {
-    await toggleTaskInDb(task, listId);
+    await toggleTaskInDb(task.description, task.isDone, listId);
     setTasks(
       tasks.map((t) =>
         t.description === task.description ? { ...t, isDone: !t.isDone } : t

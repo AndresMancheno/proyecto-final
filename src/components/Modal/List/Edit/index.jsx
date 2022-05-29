@@ -1,6 +1,6 @@
 import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
-import { changeProfile } from 'db/users';
+import { addList, editListInDB, getUserLists } from 'db/lists';
 import { useForm } from 'react-hook-form';
 import {
   InputColor,
@@ -10,8 +10,8 @@ import {
   StyledModal,
 } from './styled';
 
-export default function UserProfile({ open, setOpen }) {
-  const { userConf, setUserConf } = useAuth();
+export default function EditList({ list, open, setOpen }) {
+  const { userConf, setLists } = useAuth();
 
   const {
     handleSubmit,
@@ -19,53 +19,18 @@ export default function UserProfile({ open, setOpen }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values) => checkValues(values);
+  const onSubmit = (values) => editList(values);
 
-  const checkValues = (values) => {
-    const userValues = {
-      name: '',
-      image: '',
-      color: '',
-    };
-
-    if (values.name === undefined) {
-      userValues.name = userConf.name;
-    } else {
-      userValues.name = values.name;
-    }
-
-    if (values.name === undefined) {
-      userValues.color = userConf.color;
-    } else {
-      userValues.color = values.color;
-    }
-
-    userValues.image = values.image;
-
-    changeValues(userValues);
-  };
-
-  const changeValues = async (value) => {
+  const editList = async (values) => {
     try {
-      await changeProfile(value, userConf.email);
-      window.localStorage.setItem('userName', value.name);
-      window.localStorage.setItem('userImage', value.image);
-      window.localStorage.setItem('userColor', value.color);
-
-      setUserConf((prevValues) => ({
-        ...prevValues,
-        name: value.name,
-        color: value.color,
-        image: value.image,
-      }));
-
+      await editListInDB(values, list.id);
+      getUserLists(userConf.email).then((s) => setLists(s));
       setOpen(false);
-    } catch (ev) {
-      console.log(ev);
+    } catch (error) {
+      console.log(error);
     }
   };
   const { isDark } = useTheme();
-
   return (
     <StyledModal
       open={open}
@@ -79,36 +44,51 @@ export default function UserProfile({ open, setOpen }) {
           <Text id="modal-title" size={18}>
             Edita tú{' '}
             <Text b size={18}>
-              perfil
+              lista
             </Text>
           </Text>
         </Modal.Header>
         <Modal.Body>
           <StyledInput
-            placeholder="Nombre de usuario"
+            placeholder="Nombre de la lista"
+            defaultValue={list.name}
             name="name"
-            defaultValue={userConf.name}
             {...register('name', {
               required: {
                 value: 'true',
                 message: 'Campo requerido',
+              },
+              maxLength: {
+                value: 15,
+                message: 'El nombre tiene que tener menos de 15 letras :(',
               },
             })}
           />
           {errors.name && <MessageError>{errors.name.message}</MessageError>}
 
           <StyledInput
-            placeholder="Enlace de la imágen"
-            defaultValue={userConf.image}
-            name="image"
-            {...register('image')}
+            placeholder="Nombre del tag"
+            defaultValue={list.tag}
+            name="tag"
+            {...register('tag', {
+              required: {
+                value: 'true',
+                message: 'Campo requerido',
+              },
+              maxLength: {
+                value: 10,
+                message:
+                  'El nombre del tag tiene que tener menos de 10 letras :(',
+              },
+            })}
           />
+          {errors.tag && <MessageError>{errors.tag.message}</MessageError>}
 
-          <InputColorContainer isDark={isDark}>
+          <InputColorContainer backgroundDark={isDark}>
             <label>Selecciona un color</label>
             <InputColor
-              defaultValue={userConf.color}
               placeholder="Enlace de la imágen"
+              defaultValue={list.color}
               name="color"
               type="color"
               {...register('color', {
@@ -117,7 +97,7 @@ export default function UserProfile({ open, setOpen }) {
                   message: 'Campo requerido',
                 },
               })}
-            ></InputColor>
+            />
           </InputColorContainer>
           {errors.color && <MessageError>{errors.color.message}</MessageError>}
         </Modal.Body>
@@ -131,7 +111,7 @@ export default function UserProfile({ open, setOpen }) {
               color: 'white',
             }}
           >
-            ¡Cámbialo!
+            ¡Edítala!
           </Button>
         </Modal.Footer>
       </form>

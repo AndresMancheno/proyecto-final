@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import {
   addDoc,
   collection,
@@ -5,6 +6,7 @@ import {
   doc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { db } from 'lib/firebase/firebase';
@@ -15,7 +17,7 @@ export async function addList(values, userID) {
   addDoc(listsDB, {
     userID: userID,
     name: values.name,
-    tag: 'tag',
+    tag: values.tag,
     color: values.color,
   });
 }
@@ -33,7 +35,7 @@ export async function getUserLists(userID) {
         id: doc.id,
         userID: userID,
         name: doc.data().name,
-        tag: 'tag',
+        tag: doc.data().tag,
         color: doc.data().color,
       };
     });
@@ -60,6 +62,58 @@ export async function removeListFromDb(idList) {
     } catch (e) {
       console.log(e);
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function editListInDB(list, id) {
+  const listRef = doc(db, 'Lists', id);
+
+  await updateDoc(listRef, {
+    name: list.name,
+    tag: list.tag,
+    color: list.color,
+  });
+}
+
+export async function getAllDeadLineTasks(userID, setTodayTasks) {
+  try {
+    const deadLineTasks = [];
+    const listsQuery = query(
+      collection(db, 'Lists'),
+      where('userID', '==', userID)
+    );
+
+    const querySnapshot = await getDocs(listsQuery);
+    querySnapshot.docs.map(async (list) => {
+      try {
+        const taskQuery = query(
+          collection(db, 'Tasks'),
+          where('listID', '==', list.id)
+        );
+
+        const querySnapshot = await getDocs(taskQuery);
+        querySnapshot.docs.map((task) => {
+          const taskDate = new Date(task.data().deadLine.seconds * 1000);
+          const nextWeekDate = new Date();
+          nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+          if (nextWeekDate >= taskDate && task.data().isDone === false) {
+            deadLineTasks.push({
+              listID: list.id,
+              listName: list.data().name,
+              listTag: list.data().tag,
+              taskID: task.id,
+              taskDescription: task.data().description,
+              taskDeadlineDate: task.data().deadLine,
+            });
+          }
+        });
+        setTodayTasks(deadLineTasks);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   } catch (error) {
     console.log(error);
   }

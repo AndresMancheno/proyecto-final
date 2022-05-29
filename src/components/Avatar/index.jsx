@@ -1,7 +1,7 @@
+import { Avatar } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { pickTextColorBasedOnBgColor } from 'lib/theme/theme';
 import { useEffect, useState } from 'react';
-import { StyledAvatar } from './styled';
 
 export default function IconUser() {
   const { userConf } = useAuth();
@@ -12,7 +12,7 @@ export default function IconUser() {
   }, [userConf.color, userConf.email]);
 
   return (
-    <StyledAvatar
+    <Avatar
       text={userConf.name}
       pointer="true"
       zoomed="true"
