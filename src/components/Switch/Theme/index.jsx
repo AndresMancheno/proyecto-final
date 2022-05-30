@@ -9,7 +9,7 @@ export default function ChangeTheme() {
 
   return (
     <StyledSwitch
-      css={{ marginRight: '2rem' }}
+      css={{ marginRight: '1rem', marginLeft: '1rem' }}
       checked={isDark}
       color="secondary"
       bordered

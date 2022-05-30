@@ -20,11 +20,11 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
-  const [sections, setSections] = useState([]);
   const [lists, setLists] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [weekTasks, setWeekTasks] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  //useReducer
   const [userConf, setUserConf] = useState({
     email: window.localStorage.getItem('userEmail'),
     name: window.localStorage.getItem('userName'),
@@ -37,10 +37,9 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const {
-      user: { email: emailLogged },
-    } = await signInWithEmailAndPassword(auth, email, password);
-    const userConfiguration = await getUser(emailLogged);
+    await signInWithEmailAndPassword(auth, email, password);
+
+    const userConfiguration = await getUser(email);
 
     setUserConf(() => ({
       email: email,
@@ -53,6 +52,22 @@ export function AuthProvider({ children }) {
     window.localStorage.setItem('userName', userConf.name);
     window.localStorage.setItem('userColor', userConf.color);
     window.localStorage.setItem('userImage', userConf.image);
+  };
+
+  const updateLists = (lists) => {
+    setLists(lists);
+  };
+
+  const updateTags = (tags) => {
+    setTags(tags);
+  };
+
+  const updateWeekTasks = (tasks) => {
+    setWeekTasks(tasks);
+  };
+
+  const updateListTasks = (tasks) => {
+    setTasks(tasks);
   };
 
   const logout = () => signOut(auth);
@@ -83,15 +98,17 @@ export function AuthProvider({ children }) {
         signUp,
         login,
         logout,
+        setUserConf,
+        updateLists,
+        updateTags,
+        updateWeekTasks,
+        updateListTasks,
         user,
         userConf,
-        setUserConf,
-        sections,
-        setSections,
         lists,
-        setLists,
         tasks,
-        setTasks,
+        tags,
+        weekTasks,
       }}
     >
       {children}

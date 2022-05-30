@@ -2,6 +2,7 @@ import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { changeProfile } from 'db/users';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
   InputColor,
   InputColorContainer,
@@ -60,8 +61,22 @@ export default function UserProfile({ open, setOpen }) {
       }));
 
       setOpen(false);
+
+      if (isDark) {
+        toast.success('Perfil actualizado', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.success('Perfil actualizado');
+      }
     } catch (ev) {
-      console.log(ev);
+      if (isDark) {
+        toast.success('Ha habido un problema al actualizar tú perfil', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.success('Ha habido un problema al actualizar tú perfil');
+      }
     }
   };
   const { isDark } = useTheme();
@@ -99,6 +114,7 @@ export default function UserProfile({ open, setOpen }) {
 
           <StyledInput
             placeholder="Enlace de la imágen"
+            defaultValue={userConf.image}
             name="image"
             {...register('image')}
           />

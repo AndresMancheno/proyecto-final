@@ -1,5 +1,5 @@
 import { Spacer, useTheme } from '@nextui-org/react';
-import { getUserTasks, toggleTaskInDb, updateProrityInDB } from 'db/tasks';
+import { getUserTasks, toggleTaskInDb } from 'db/tasks';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/authContext';
 
@@ -8,10 +8,9 @@ import { TaskCreator } from './Creator';
 import { TaskRow } from './Row';
 import { StyledTaskTable } from './styled';
 import { VisibilityControl } from './VisibilityControl';
-import { Controller, useForm } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
+
 export default function Task() {
-  const { userConf, tasks, setTasks } = useAuth();
+  const { userConf, tasks, updateListTasks } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(false);
 
@@ -19,18 +18,18 @@ export default function Task() {
   const listName = window.localStorage.getItem('listName');
 
   useEffect(() => {
-    getUserTasks(listId).then((s) => setTasks(s));
+    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
   }, [userConf.email]);
 
   const createNewTask = (taskName) => {
     if (!tasks.find((t) => t.description === taskName)) {
-      setTasks([...tasks, { description: taskName, done: false }]);
+      updateListTasks([...tasks, { description: taskName, done: false }]);
     }
   };
 
   const toggleTask = async (task) => {
-    await toggleTaskInDb(task, listId);
-    setTasks(
+    await toggleTaskInDb(task.description, task.isDone, listId);
+    updateListTasks(
       tasks.map((t) =>
         t.description === task.description ? { ...t, isDone: !t.isDone } : t
       )
@@ -47,7 +46,6 @@ export default function Task() {
           toggleTask={toggleTask}
           listId={listId}
           taskDone={doneValue === true}
-          setTasks={setTasks}
         />
       ));
   };

@@ -1,4 +1,4 @@
-import { Card, Modal, styled } from '@nextui-org/react';
+import { Modal, styled } from '@nextui-org/react';
 
 export const StyledModal = styled(Modal, {
   variants: {
@@ -36,6 +36,15 @@ export const InputColorContainer = styled('div', {
   margin: '.1rem',
   justifyContent: 'space-between',
   marginBottom: '1rem',
+  color: 'grey',
+
+  variants: {
+    backgroundDark: {
+      true: {
+        background: '#3b3b3b',
+      },
+    },
+  },
 });
 
 export const InputColor = styled('input', {

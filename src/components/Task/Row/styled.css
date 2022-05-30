@@ -8,3 +8,7 @@
   border-color: black;
   background: rgba(13, 13, 13, 0.1);
 }
+
+.react-datepicker__input-container input {
+  text-align: center;
+}

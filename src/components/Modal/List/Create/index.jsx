@@ -1,8 +1,8 @@
 import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { addList, getUserLists } from 'db/lists';
-import { addSection, getUserSections } from 'db/sections';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
   InputColor,
   InputColorContainer,
@@ -12,28 +12,58 @@ import {
 } from './styled';
 
 export default function AddList({ open, setOpen }) {
-  const { userConf, setLists } = useAuth();
-  const sectionId = window.localStorage.getItem('sectionId');
+  const { userConf, updateLists, lists } = useAuth();
 
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (values) => addListToFirebase(values);
 
   const addListToFirebase = async (values) => {
-    try {
-      await addList(values, sectionId);
-      getUserLists(sectionId).then((s) => setLists(s));
+    if (!lists.find((list) => list.name === values.name)) {
+      try {
+        await addList(values, userConf.email);
+        getUserLists(userConf.email).then((lists) => {
+          updateLists(lists);
+          setOpen(false);
+          reset();
+        });
+        if (isDark) {
+          toast.success('Lista añadida', {
+            style: { color: '#fff', background: '#333' },
+          });
+        } else {
+          toast.success('Lista añadida');
+        }
+      } catch (error) {
+        setOpen(false);
+        reset();
+        if (isDark) {
+          toast.success('Ha habido un problema al crear la lista', {
+            style: { color: '#fff', background: '#333' },
+          });
+        } else {
+          toast.success('Ha habido un problema al crear la lista');
+        }
+      }
+    } else {
       setOpen(false);
-    } catch (error) {
-      console.log(error);
+      reset();
+
+      if (isDark) {
+        toast.error('Lista repetida :(', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.error('Lista repetida :(');
+      }
     }
   };
   const { isDark } = useTheme();
-
   return (
     <StyledModal
       open={open}
@@ -68,10 +98,26 @@ export default function AddList({ open, setOpen }) {
           />
           {errors.name && <MessageError>{errors.name.message}</MessageError>}
 
-          <InputColorContainer>
+          <StyledInput
+            placeholder="Nombre del tag"
+            name="tag"
+            {...register('tag', {
+              required: {
+                value: 'true',
+                message: 'Campo requerido',
+              },
+              maxLength: {
+                value: 10,
+                message:
+                  'El nombre del tag tiene que tener menos de 10 letras :(',
+              },
+            })}
+          />
+          {errors.tag && <MessageError>{errors.tag.message}</MessageError>}
+
+          <InputColorContainer backgroundDark={isDark}>
             <label>Selecciona un color</label>
             <InputColor
-              defaultValue={userConf.color}
               placeholder="Enlace de la imágen"
               name="color"
               type="color"

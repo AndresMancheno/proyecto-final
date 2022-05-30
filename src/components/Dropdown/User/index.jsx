@@ -2,12 +2,9 @@ import { Root } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
 import IconUser from 'components/Avatar';
 import { useAuth } from 'context/authContext';
-
 import { DropdownContent, DropdownItem, UserNameContainer } from './styled';
-
 import UserProfile from 'components/Modal/UserProfile';
 
 export default function DropdownUser() {

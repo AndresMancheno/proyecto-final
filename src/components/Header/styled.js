@@ -1,4 +1,4 @@
-import { styled, Text } from '@nextui-org/react';
+import { styled } from '@nextui-org/react';
 
 export const HeaderContainer = styled('div', {
   background:
@@ -23,12 +23,6 @@ export const HeaderItemContainer = styled('div', {
       },
     },
   },
-});
-
-export const GreetingUser = styled(Text, {
-  textAlign: 'center',
-  marginTop: '1rem !important',
-  marginBottom: '2rem !important',
 });
 
 export const RightHeaderSide = styled('div', {

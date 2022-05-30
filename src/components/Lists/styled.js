@@ -1,12 +1,19 @@
-import { styled } from '@nextui-org/react';
+import { styled, Text } from '@nextui-org/react';
 
-export const TitleListContainer = styled('div', {
+export const TitleList = styled('div', {
   marginTop: '2rem',
-  marginRight: '2rem',
   textAlign: 'center',
   display: 'flex',
   alignItems: 'baseline',
   justifyContent: 'center',
+
+  variants: {
+    addMarginRight: {
+      true: {
+        marginRight: '2rem',
+      },
+    },
+  },
 });
 
 export const GridListContainer = styled('div', {
@@ -26,6 +33,12 @@ export const GridListContainer = styled('div', {
     gridTemplateColumns: 'repeat(3,1fr)',
   },
   '@lg': {
-    gridTemplateColumns: 'repeat(4,1fr)',
+    gridTemplateColumns: 'repeat(3,1fr)',
   },
+});
+
+export const GreetingUser = styled(Text, {
+  textAlign: 'center',
+  marginTop: '2rem !important',
+  marginBottom: '2rem !important',
 });
