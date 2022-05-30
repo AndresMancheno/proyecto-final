@@ -1,12 +1,12 @@
-import { Table, Text } from '@nextui-org/react';
+import { Text } from '@nextui-org/react';
 import { TitleList } from 'components/Lists/styled';
 import { useAuth } from 'context/authContext';
 import { getAllDeadLineTasks } from 'db/lists';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { HeaderTable } from './Header';
 import { TableRow } from './Row';
-import { StyledTable } from './styled';
+import { NoTaskContainer, StyledTable } from './styled';
 
 export const TaskTable = () => {
   const { userConf, lists, updateWeekTasks, weekTasks } = useAuth();
@@ -39,11 +39,11 @@ export const TaskTable = () => {
           </tbody>
         </StyledTable>
       ) : (
-        <TitleList>
-          <Text h3 color="green">
+        <NoTaskContainer>
+          <Text h4 color="green">
             ¡Has hecho todas las tareas!
           </Text>
-        </TitleList>
+        </NoTaskContainer>
       )}
     </>
   );

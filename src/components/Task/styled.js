@@ -10,6 +10,11 @@ export const StyledTaskTable = styled('table', {
   borderRadius: '10px',
   padding: '10px',
 
+  '@xsMax': {
+    width: 'unset',
+    display: 'block',
+    overflowX: 'scroll',
+  },
   variants: {
     isDark: {
       true: {

@@ -9,3 +9,8 @@ export const StyledTable = styled('table', {
     overflowX: 'scroll',
   },
 });
+
+export const NoTaskContainer = styled('div', {
+  textAlign: 'center',
+  marginTop: '1rem',
+});

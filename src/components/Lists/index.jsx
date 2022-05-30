@@ -48,15 +48,14 @@ export default function List() {
           />
         </TitleList>
 
-        <GridListContainer>
-          {lists &&
-            lists.map((list) => {
-              return <CreateCardList key={list.id} list={list} />;
-            })}
-        </GridListContainer>
-
-        {lists && (
+        {lists.length > 0 ? (
           <>
+            <GridListContainer>
+              {lists.map((list) => {
+                return <CreateCardList key={list.id} list={list} />;
+              })}
+            </GridListContainer>
+
             <TitleList>
               <Text h3> Tus tareas para esta semana </Text>
             </TitleList>
@@ -67,6 +66,21 @@ export default function List() {
             </TitleList>
             <OrderByTag />
           </>
+        ) : (
+          <TitleList>
+            <>
+              <Text
+                h2
+                css={{
+                  textGradient: '45deg, $purple600 -20%, $pink600 100%',
+                }}
+                weight="bold"
+              >
+                {' '}
+                Empieza creando listas
+              </Text>
+            </>
+          </TitleList>
         )}
       </div>
 

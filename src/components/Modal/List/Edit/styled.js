@@ -1,4 +1,4 @@
-import { Card, Modal, styled } from '@nextui-org/react';
+import { Modal, styled } from '@nextui-org/react';
 
 export const StyledModal = styled(Modal, {
   variants: {

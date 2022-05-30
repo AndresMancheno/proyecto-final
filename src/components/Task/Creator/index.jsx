@@ -1,33 +1,28 @@
 import { useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
-// import { getUserSections } from 'db/sections';
 import { addTask, getUserTasks } from 'db/tasks';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Send } from '../../../icons/Send';
 
-import {
-  FlexContainer,
-  FormContainer,
-  MessageError,
-  SendButton,
-  StyledInput,
-} from './styled';
+import { FormContainer, SendButton, StyledInput } from './styled';
 
 export const TaskCreator = ({ callBack }) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm();
   const { isDark } = useTheme();
+
   const listId = window.localStorage.getItem('listId');
 
   const onSubmit = (value) => createNewTask(value.task);
-  const { tasks, setTasks } = useAuth();
 
-  if (errors.task != undefined) {
+  const { tasks, updateListTasks } = useAuth();
+
+  if (errors.task !== undefined) {
     if (isDark) {
       toast.error(errors.task.message, {
         style: { color: '#fff', background: '#333' },
@@ -58,9 +53,10 @@ export const TaskCreator = ({ callBack }) => {
       }
     }
 
-    getUserTasks(listId).then((s) => setTasks(s));
+    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
 
     callBack(value);
+    reset();
   };
 
   return (
@@ -71,8 +67,6 @@ export const TaskCreator = ({ callBack }) => {
           autoFocus
           placeholder="Crea una tarea..."
           clearable
-          width="400px"
-          css={{ marginRight: '1rem' }}
           name="task"
           aria-label="task"
           {...register('task', {

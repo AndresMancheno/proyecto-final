@@ -6,7 +6,7 @@ export const FormContainer = styled('form', {
 });
 
 export const StyledInput = styled(Input, {
-  marginRight: '1rem',
+  marginRight: '2rem',
 });
 
 export const SendButton = styled('button', {
@@ -27,9 +27,4 @@ export const SendButton = styled('button', {
       transition: '.4s ease-in-out',
     },
   },
-});
-export const MessageError = styled('span', {
-  fontSize: '12px',
-  textAlign: 'center',
-  color: '$error',
 });

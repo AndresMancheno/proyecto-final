@@ -1,13 +1,6 @@
 import { useAuth } from 'context/authContext';
 import { useEffect, useState } from 'react';
 import { SelectTag } from './Create';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
-import { FreeMode, Pagination } from 'swiper';
 import { CreateCardList } from 'components/Lists/Create';
 import { GridListContainer } from 'components/Lists/styled';
 export const OrderByTag = () => {
@@ -18,12 +11,21 @@ export const OrderByTag = () => {
   });
 
   useEffect(() => {
-    console.log({ lists, tags });
     setSelectState({
       ...selectState,
-      listFiltered: lists.filter((list) => list.tag === selectState.tag),
+      listFiltered: lists.filter(
+        (list) => list.tag === selectState.tagSelected
+      ),
     });
-  }, [selectState.tag, lists]);
+  }, [selectState.tagSelected]);
+
+  useEffect(() => {
+    setSelectState({
+      tagSelected: '',
+      listFiltered: [],
+    });
+  }, [lists]);
+
   return (
     <>
       <SelectTag

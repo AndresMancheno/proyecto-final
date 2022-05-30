@@ -22,6 +22,7 @@ export async function addUsers(userName, email) {
 }
 
 export async function getUser(email) {
+  console.log(email);
   const userQuery = query(collection(db, 'Users'), where('email', '==', email));
 
   const querySnapshot = await getDocs(userQuery);
@@ -29,6 +30,7 @@ export async function getUser(email) {
   let user;
 
   querySnapshot.forEach((doc) => {
+    console.log(doc.data());
     user = doc.data();
   });
 

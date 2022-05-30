@@ -2,6 +2,7 @@ import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { addList, getUserLists } from 'db/lists';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
   InputColor,
   InputColorContainer,
@@ -11,7 +12,7 @@ import {
 } from './styled';
 
 export default function AddList({ open, setOpen }) {
-  const { userConf, setLists } = useAuth();
+  const { userConf, updateLists, lists } = useAuth();
 
   const {
     handleSubmit,
@@ -23,15 +24,43 @@ export default function AddList({ open, setOpen }) {
   const onSubmit = (values) => addListToFirebase(values);
 
   const addListToFirebase = async (values) => {
-    try {
-      await addList(values, userConf.email);
-      getUserLists(userConf.email).then((s) => {
-        setLists(s);
+    if (!lists.find((list) => list.name === values.name)) {
+      try {
+        await addList(values, userConf.email);
+        getUserLists(userConf.email).then((lists) => {
+          updateLists(lists);
+          setOpen(false);
+          reset();
+        });
+        if (isDark) {
+          toast.success('Lista añadida', {
+            style: { color: '#fff', background: '#333' },
+          });
+        } else {
+          toast.success('Lista añadida');
+        }
+      } catch (error) {
         setOpen(false);
         reset();
-      });
-    } catch (error) {
-      console.log(error);
+        if (isDark) {
+          toast.success('Ha habido un problema al crear la lista', {
+            style: { color: '#fff', background: '#333' },
+          });
+        } else {
+          toast.success('Ha habido un problema al crear la lista');
+        }
+      }
+    } else {
+      setOpen(false);
+      reset();
+
+      if (isDark) {
+        toast.error('Lista repetida :(', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.error('Lista repetida :(');
+      }
     }
   };
   const { isDark } = useTheme();

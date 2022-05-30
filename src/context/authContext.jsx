@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
   const [weekTasks, setWeekTasks] = useState([]);
   const [tags, setTags] = useState([]);
 
-  //useReducer
   const [userConf, setUserConf] = useState({
     email: window.localStorage.getItem('userEmail'),
     name: window.localStorage.getItem('userName'),
@@ -38,10 +37,9 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const {
-      user: { email: emailLogged },
-    } = await signInWithEmailAndPassword(auth, email, password);
-    const userConfiguration = await getUser(emailLogged);
+    await signInWithEmailAndPassword(auth, email, password);
+
+    const userConfiguration = await getUser(email);
 
     setUserConf(() => ({
       email: email,
@@ -59,11 +57,17 @@ export function AuthProvider({ children }) {
   const updateLists = (lists) => {
     setLists(lists);
   };
+
   const updateTags = (tags) => {
     setTags(tags);
   };
+
   const updateWeekTasks = (tasks) => {
     setWeekTasks(tasks);
+  };
+
+  const updateListTasks = (tasks) => {
+    setTasks(tasks);
   };
 
   const logout = () => signOut(auth);
@@ -94,18 +98,17 @@ export function AuthProvider({ children }) {
         signUp,
         login,
         logout,
-        user,
-        userConf,
         setUserConf,
-        lists,
-        setLists,
-        tasks,
-        setTasks,
         updateLists,
         updateTags,
+        updateWeekTasks,
+        updateListTasks,
+        user,
+        userConf,
+        lists,
+        tasks,
         tags,
         weekTasks,
-        updateWeekTasks,
       }}
     >
       {children}

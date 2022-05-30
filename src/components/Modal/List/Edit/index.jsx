@@ -1,7 +1,8 @@
 import { Modal, Button, Text, useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
-import { addList, editListInDB, getUserLists } from 'db/lists';
+import { editListInDB, getUserLists } from 'db/lists';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
   InputColor,
   InputColorContainer,
@@ -11,7 +12,7 @@ import {
 } from './styled';
 
 export default function EditList({ list, open, setOpen }) {
-  const { userConf, setLists } = useAuth();
+  const { lists, userConf, updateLists, updateTags } = useAuth();
 
   const {
     handleSubmit,
@@ -24,10 +25,26 @@ export default function EditList({ list, open, setOpen }) {
   const editList = async (values) => {
     try {
       await editListInDB(values, list.id);
-      getUserLists(userConf.email).then((s) => setLists(s));
+      await getUserLists(userConf.email).then((lists) => updateLists(lists));
+      const userTags = lists.map((list) => list.tag);
+      const filtredTags = new Set(userTags);
+      updateTags([...filtredTags]);
       setOpen(false);
+      if (isDark) {
+        toast.success('Lista actualizada', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.success('Lista actualizada');
+      }
     } catch (error) {
-      console.log(error);
+      if (isDark) {
+        toast.success('Ha habido un problema al actualizar la lista', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.success('Ha habido un problema al actualizar la lista');
+      }
     }
   };
   const { isDark } = useTheme();

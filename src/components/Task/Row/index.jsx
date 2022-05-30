@@ -1,20 +1,26 @@
 import { Controller, useForm } from 'react-hook-form';
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { IconButton, StyledDataPicker } from './styled';
 import './styled.css';
+import { IconButton } from './styled';
 import toast from 'react-hot-toast';
 import { Tooltip, useTheme } from '@nextui-org/react';
 import { getUserTasks, removeTaskFromDb, updateDeadLineInDB } from 'db/tasks';
 import { Delete } from 'icons/Delete';
-export const TaskRow = ({ task, toggleTask, listId, taskDone, setTasks }) => {
-  const { control, register, handleSubmit } = useForm();
+import { useAuth } from 'context/authContext';
+
+export const TaskRow = ({ task, toggleTask, listId, taskDone }) => {
+  const { control } = useForm();
+  const { updateListTasks } = useAuth();
+
   const [deadLine, setDeadLine] = useState(
     new Date(task.deadLine.seconds * 1000)
   );
+
   const { isDark } = useTheme();
+
   const checkDeadLine = async (date, field) => {
     let actualDate = new Date(Date.now());
     actualDate.setHours(0, 0, 0, 0);
@@ -54,8 +60,9 @@ export const TaskRow = ({ task, toggleTask, listId, taskDone, setTasks }) => {
 
   const removeTask = async (id) => {
     await removeTaskFromDb(id);
-    getUserTasks(listId).then((s) => setTasks(s));
+    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
   };
+
   return (
     <>
       <tr style={{ lineHeight: '3rem' }}>

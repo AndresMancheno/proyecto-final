@@ -1,9 +1,9 @@
-import { async } from '@firebase/util';
 import { Button, Card, Divider, Text, useTheme } from '@nextui-org/react';
 import EditList from 'components/Modal/List/Edit';
 import { useAuth } from 'context/authContext';
 import { getUserLists, removeListFromDb } from 'db/lists';
 import { getUserTasks } from 'db/tasks';
+import { pickTextColorBasedOnBgColor } from 'lib/theme/theme';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -16,10 +16,11 @@ import {
 } from './styled';
 
 export function CreateCardList({ list }) {
-  const navigate = useNavigate();
+  const { userConf, updateLists, lists, tasks, updateListTasks } = useAuth();
   const [open, setOpen] = useState(false);
-  const [tasks, setTasks] = useState([]);
-  const { userConf, setLists, lists } = useAuth();
+  const [textColor, setTextColor] = useState('#fff');
+
+  const navigate = useNavigate();
 
   const redirectToTask = async (id, name) => {
     window.localStorage.setItem('listId', id);
@@ -28,8 +29,12 @@ export function CreateCardList({ list }) {
   };
 
   useEffect(() => {
+    setTextColor(pickTextColorBasedOnBgColor(list.color));
+  }, [list.color]);
+
+  useEffect(() => {
     const getTasks = async () => {
-      setTasks(
+      updateListTasks(
         (await getUserTasks(list.id)).filter((task) => task.isDone === false)
       );
     };
@@ -41,7 +46,14 @@ export function CreateCardList({ list }) {
   const removeList = async (id) => {
     try {
       await removeListFromDb(id);
-      await getUserLists(userConf.email).then((s) => setLists(s));
+      getUserLists(userConf.email).then((lists) => updateLists(lists));
+      if (isDark) {
+        toast.success('Lista eliminada ^^', {
+          style: { color: '#fff', background: '#333' },
+        });
+      } else {
+        toast.success('Lista eliminada ^^');
+      }
     } catch (er) {
       if (isDark) {
         toast.error('Ha ocurrido un error al eliminar la lista :(', {
@@ -55,19 +67,18 @@ export function CreateCardList({ list }) {
 
   return (
     <div>
-      <CardList css={{ background: list.color }}>
+      <CardList css={{ background: list.color, border: '1px solid #000' }}>
         <Card.Header>
-          <InfoContainer css={{}}>
-            <RowInfo css={{}}>
+          <InfoContainer>
+            <RowInfo>
               <Text
                 h3
-                color="white"
-                css={{ cursor: 'pointer' }}
+                css={{ cursor: 'pointer', color: `${textColor}` }}
                 onClick={() => redirectToTask(list.id, list.name)}
               >
                 {list.name}
               </Text>
-              <Text h5 color="white">
+              <Text h5 css={{ color: `${textColor}` }}>
                 {list.tag}
               </Text>
             </RowInfo>
@@ -101,13 +112,14 @@ export function CreateCardList({ list }) {
                 <ListElement
                   key={task.id}
                   onClick={() => redirectToTask(list.id, list.name)}
+                  css={{ color: `${textColor}` }}
                 >
                   {task.description}
                 </ListElement>
               ))}
             </StyledList>
           ) : (
-            <Text h4 css={{ textAlign: 'center' }}>
+            <Text h4 css={{ textAlign: 'center', color: `${textColor}` }}>
               No tienes ninguna tarea en la lista!
             </Text>
           )}
