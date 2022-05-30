@@ -25,9 +25,11 @@ export default function AddList({ open, setOpen }) {
   const addListToFirebase = async (values) => {
     try {
       await addList(values, userConf.email);
-      getUserLists(userConf.email).then((s) => setLists(s));
-      setOpen(false);
-      reset();
+      getUserLists(userConf.email).then((s) => {
+        setLists(s);
+        setOpen(false);
+        reset();
+      });
     } catch (error) {
       console.log(error);
     }

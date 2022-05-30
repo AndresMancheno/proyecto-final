@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import {
   addDoc,
   collection,
@@ -77,7 +76,7 @@ export async function editListInDB(list, id) {
   });
 }
 
-export async function getAllDeadLineTasks(userID, setTodayTasks) {
+export async function getAllDeadLineTasks(userID, updateWeekTasks) {
   try {
     const deadLineTasks = [];
     const listsQuery = query(
@@ -109,7 +108,7 @@ export async function getAllDeadLineTasks(userID, setTodayTasks) {
             });
           }
         });
-        setTodayTasks(deadLineTasks);
+        updateWeekTasks(deadLineTasks);
       } catch (error) {
         console.log(error);
       }

@@ -7,26 +7,26 @@ import { useEffect, useState } from 'react';
 import { HeaderTable } from './Header';
 import { TableRow } from './Row';
 import { StyledTable } from './styled';
+
 export const TaskTable = () => {
-  const { userConf } = useAuth();
-  const [todayTasks, setTodayTasks] = useState([]);
+  const { userConf, lists, updateWeekTasks, weekTasks } = useAuth();
 
   useEffect(() => {
     async function getThisWeekTasks() {
-      await getAllDeadLineTasks(userConf.email, setTodayTasks);
+      await getAllDeadLineTasks(userConf.email, updateWeekTasks);
     }
     getThisWeekTasks();
-  }, [userConf.email]);
+  }, [userConf.email, lists]);
 
   return (
     <>
-      {todayTasks.length !== 0 ? (
+      {weekTasks.length !== 0 ? (
         <StyledTable>
           <thead>
             <HeaderTable />
           </thead>
           <tbody>
-            {todayTasks.map((task) => (
+            {weekTasks.map((task) => (
               <TableRow
                 key={task.taskID}
                 listID={task.listID}
@@ -34,7 +34,6 @@ export const TaskTable = () => {
                 listTag={task.listTag}
                 taskDescription={task.taskDescription}
                 taskDeadlineDate={task.taskDeadlineDate}
-                setTodayTasks={setTodayTasks}
               />
             ))}
           </tbody>

@@ -19,7 +19,7 @@ export function CreateCardList({ list }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const { userConf, setLists } = useAuth();
+  const { userConf, setLists, lists } = useAuth();
 
   const redirectToTask = async (id, name) => {
     window.localStorage.setItem('listId', id);
@@ -30,13 +30,11 @@ export function CreateCardList({ list }) {
   useEffect(() => {
     const getTasks = async () => {
       setTasks(
-        await (
-          await getUserTasks(list.id)
-        ).filter((task) => task.isDone === false)
+        (await getUserTasks(list.id)).filter((task) => task.isDone === false)
       );
     };
     getTasks();
-  }, [userConf.email]);
+  }, [userConf.email, lists]);
 
   const { isDark } = useTheme();
 
@@ -44,13 +42,6 @@ export function CreateCardList({ list }) {
     try {
       await removeListFromDb(id);
       await getUserLists(userConf.email).then((s) => setLists(s));
-      if (isDark) {
-        toast.success('Lista eliminada con éxito ^^', {
-          style: { color: '#fff', background: '#333' },
-        });
-      } else {
-        toast.success('Lista eliminada con éxito ^^');
-      }
     } catch (er) {
       if (isDark) {
         toast.error('Ha ocurrido un error al eliminar la lista :(', {

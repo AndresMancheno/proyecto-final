@@ -10,26 +10,33 @@ import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper';
 import { CreateCardList } from 'components/Lists/Create';
 import { GridListContainer } from 'components/Lists/styled';
-export const OrderByTag = ({ lists, tags }) => {
-  const { userConf } = useAuth();
-  const [listFiltered, setListFiltered] = useState([]);
+export const OrderByTag = () => {
+  const { lists, tags } = useAuth();
+  const [selectState, setSelectState] = useState({
+    tagSelected: '',
+    listFiltered: [],
+  });
+
   useEffect(() => {
-    setListFiltered(lists.filter((list) => list.tag === tags[0]));
-  }, [userConf.email]);
+    console.log({ lists, tags });
+    setSelectState({
+      ...selectState,
+      listFiltered: lists.filter((list) => list.tag === selectState.tag),
+    });
+  }, [selectState.tag, lists]);
   return (
     <>
       <SelectTag
+        selectState={selectState}
+        setSelectState={setSelectState}
         lists={lists}
         tags={tags}
-        listFiltered={listFiltered}
-        setListFiltered={setListFiltered}
       />
 
       <GridListContainer>
-        {listFiltered &&
-          listFiltered.map((list) => {
-            return <CreateCardList key={list.id} list={list} />;
-          })}
+        {selectState.listFiltered.map((list) => {
+          return <CreateCardList key={list.id} list={list} />;
+        })}
       </GridListContainer>
     </>
   );

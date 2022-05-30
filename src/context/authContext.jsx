@@ -22,6 +22,8 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
   const [lists, setLists] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [weekTasks, setWeekTasks] = useState([]);
+  const [tags, setTags] = useState([]);
 
   //useReducer
   const [userConf, setUserConf] = useState({
@@ -52,6 +54,16 @@ export function AuthProvider({ children }) {
     window.localStorage.setItem('userName', userConf.name);
     window.localStorage.setItem('userColor', userConf.color);
     window.localStorage.setItem('userImage', userConf.image);
+  };
+
+  const updateLists = (lists) => {
+    setLists(lists);
+  };
+  const updateTags = (tags) => {
+    setTags(tags);
+  };
+  const updateWeekTasks = (tasks) => {
+    setWeekTasks(tasks);
   };
 
   const logout = () => signOut(auth);
@@ -89,6 +101,11 @@ export function AuthProvider({ children }) {
         setLists,
         tasks,
         setTasks,
+        updateLists,
+        updateTags,
+        tags,
+        weekTasks,
+        updateWeekTasks,
       }}
     >
       {children}

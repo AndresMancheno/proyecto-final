@@ -1,7 +1,7 @@
 import { Col, Row, Text, Tooltip } from '@nextui-org/react';
 import { IconButton } from 'components/Lists/styled';
 import { useAuth } from 'context/authContext';
-import { getAllDeadLineTasks } from 'db/lists';
+import { getAllDeadLineTasks, getUserLists } from 'db/lists';
 import { removeTaskFromDb, toggleTaskInDb } from 'db/tasks';
 import { Delete } from 'icons/Delete';
 import { Edit } from 'icons/Edit';
@@ -14,9 +14,8 @@ export const TableRow = ({
   listTag,
   taskDescription,
   taskDeadlineDate,
-  setTodayTasks,
 }) => {
-  const { userConf } = useAuth();
+  const { userConf, updateWeekTasks, setLists } = useAuth();
 
   const actualDate = new Date(Date.now());
   actualDate.setDate(actualDate.getDate());
@@ -29,7 +28,8 @@ export const TableRow = ({
 
   const finishTask = async () => {
     await toggleTaskInDb(taskDescription, false, listID);
-    await getAllDeadLineTasks(userConf.email, setTodayTasks);
+    await getAllDeadLineTasks(userConf.email, updateWeekTasks);
+    await getUserLists(userConf.email).then((s) => setLists(s));
   };
 
   const editTask = () => {
@@ -41,7 +41,8 @@ export const TableRow = ({
 
   const removeTask = async () => {
     await removeTaskFromDb(taskDescription);
-    await getAllDeadLineTasks(userConf.email, setTodayTasks);
+    await getAllDeadLineTasks(userConf.email, updateWeekTasks);
+    await getUserLists(userConf.email).then((s) => setLists(s));
   };
 
   return (

@@ -12,21 +12,22 @@ import { TaskTable } from 'components/Table';
 import { OrderByTag } from 'components/Tag';
 
 export default function List() {
-  const { userConf, lists, setLists } = useAuth();
-  const [tags, setTags] = useState([]);
-  const [listFiltered, setListFiltered] = useState([]);
+  const { userConf, lists, updateLists, updateTags } = useAuth();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    getUserLists(userConf.email).then((lists) => {
-      setLists(lists);
-      const userTags = lists.map((list) => list.tag);
+    getUserLists(userConf.email).then((lists) => updateLists(lists));
 
-      const filtredTags = new Set(userTags);
-
-      setTags([...filtredTags]);
-    });
+    const userTags = lists.map((list) => list.tag);
+    const filtredTags = new Set(userTags);
+    updateTags([...filtredTags]);
   }, [userConf.email]);
+
+  useEffect(() => {
+    const userTags = lists.map((list) => list.tag);
+    const filtredTags = new Set(userTags);
+    updateTags([...filtredTags]);
+  }, [lists]);
 
   return (
     <>
@@ -64,7 +65,7 @@ export default function List() {
             <TitleList>
               <Text h3>Listas ordenadas por el tag</Text>
             </TitleList>
-            <OrderByTag lists={lists} tags={tags} />
+            <OrderByTag />
           </>
         )}
       </div>

@@ -1,14 +1,17 @@
 import { HeaderContainer, HeaderTitle, StyledSelect } from './styled';
 
-export const SelectTag = ({ lists, tags, setListFiltered }) => {
-  console.log(tags);
-
+export const SelectTag = ({
+  lists,
+  tags,
+  setListFiltered,
+  setSelectState,
+  selectState,
+}) => {
   const onValueChange = (value) => {
-    if (value === '') {
-      setListFiltered([]);
-    } else {
-      setListFiltered(lists.filter((list) => list.tag === value));
-    }
+    setSelectState({
+      ...selectState,
+      tag: value,
+    });
   };
   return (
     <>
