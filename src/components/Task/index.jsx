@@ -1,4 +1,4 @@
-import { Spacer, useTheme } from '@nextui-org/react';
+import { Button, Spacer, useTheme } from '@nextui-org/react';
 import { getUserTasks, toggleTaskInDb } from 'db/tasks';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/authContext';
@@ -6,10 +6,13 @@ import { useAuth } from '../../context/authContext';
 import { TaskBanner } from './Banner';
 import { TaskCreator } from './Creator';
 import { TaskRow } from './Row';
-import { StyledTaskTable } from './styled';
+import { ReturnButton, StyledTaskTable } from './styled';
 import { VisibilityControl } from './VisibilityControl';
+import { useNavigate } from 'react-router-dom';
 
 export default function Task() {
+  const navigate = useNavigate();
+
   const { userConf, tasks, updateListTasks } = useAuth();
 
   const [showCompleted, setShowCompleted] = useState(false);
@@ -52,8 +55,24 @@ export default function Task() {
 
   const { isDark } = useTheme();
 
+  const returnToMenu = () => {
+    navigate('/');
+  };
+
   return (
     <>
+      <ReturnButton
+        bordered
+        color="primary"
+        auto
+        icon={<ion-icon name="arrow-back-circle-outline" />}
+        shadow={isDark}
+        onClick={() => {
+          returnToMenu();
+        }}
+      >
+        Volver al menú
+      </ReturnButton>
       <TaskBanner listName={listName} taskItems={tasks} />
       <Spacer y={2} />
       <TaskCreator callBack={createNewTask} />

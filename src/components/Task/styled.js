@@ -1,4 +1,4 @@
-import { styled } from '@nextui-org/react';
+import { Button, styled } from '@nextui-org/react';
 
 export const StyledTaskTable = styled('table', {
   margin: '0 auto',
@@ -74,5 +74,14 @@ export const IconButton = styled('button', {
   },
   '&:active': {
     opacity: '0.6',
+  },
+});
+
+export const ReturnButton = styled(Button, {
+  marginTop: '2rem !important',
+  marginLeft: '3rem',
+
+  '@smMax': {
+    marginLeft: '1rem',
   },
 });
