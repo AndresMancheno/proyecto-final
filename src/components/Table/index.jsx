@@ -3,17 +3,17 @@ import { TitleList } from 'components/Lists/styled';
 import { useAuth } from 'context/authContext';
 import { getAllDeadLineTasks } from 'db/lists';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HeaderTable } from './Header';
 import { TableRow } from './Row';
 import { NoTaskContainer, StyledTable } from './styled';
 
-export const TaskTable = () => {
-  const { userConf, lists, updateWeekTasks, weekTasks } = useAuth();
+export const TaskTable = ({ weekTasks, setWeekTasks }) => {
+  const { userConf, lists } = useAuth();
 
   useEffect(() => {
     async function getThisWeekTasks() {
-      await getAllDeadLineTasks(userConf.email, updateWeekTasks);
+      await getAllDeadLineTasks(userConf.email, setWeekTasks);
     }
     getThisWeekTasks();
   }, [userConf.email, lists]);

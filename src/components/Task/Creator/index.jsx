@@ -1,13 +1,14 @@
 import { useTheme } from '@nextui-org/react';
 import { useAuth } from 'context/authContext';
 import { addTask, getUserTasks } from 'db/tasks';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Send } from '../../../icons/Send';
 
 import { FormContainer, SendButton, StyledInput } from './styled';
 
-export const TaskCreator = ({ callBack }) => {
+export const TaskCreator = ({ callBack, tasks, setTasks }) => {
   const {
     handleSubmit,
     register,
@@ -19,8 +20,6 @@ export const TaskCreator = ({ callBack }) => {
   const listId = window.localStorage.getItem('listId');
 
   const onSubmit = (value) => createNewTask(value.task);
-
-  const { tasks, updateListTasks } = useAuth();
 
   if (errors.task !== undefined) {
     if (isDark) {
@@ -53,7 +52,7 @@ export const TaskCreator = ({ callBack }) => {
       }
     }
 
-    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
+    getUserTasks(listId).then((tasks) => setTasks(tasks));
 
     callBack(value);
     reset();

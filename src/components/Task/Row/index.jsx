@@ -11,9 +11,8 @@ import { getUserTasks, removeTaskFromDb, updateDeadLineInDB } from 'db/tasks';
 import { Delete } from 'icons/Delete';
 import { useAuth } from 'context/authContext';
 
-export const TaskRow = ({ task, toggleTask, listId, taskDone }) => {
+export const TaskRow = ({ task, toggleTask, listId, taskDone, setTasks }) => {
   const { control } = useForm();
-  const { updateListTasks } = useAuth();
 
   const [deadLine, setDeadLine] = useState(
     new Date(task.deadLine.seconds * 1000)
@@ -60,7 +59,7 @@ export const TaskRow = ({ task, toggleTask, listId, taskDone }) => {
 
   const removeTask = async (id) => {
     await removeTaskFromDb(id);
-    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
+    getUserTasks(listId).then((tasks) => setTasks(tasks));
   };
 
   return (
