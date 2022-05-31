@@ -16,8 +16,9 @@ import {
 } from './styled';
 
 export function CreateCardList({ list }) {
-  const { userConf, updateLists, lists, tasks, updateListTasks } = useAuth();
+  const { userConf, updateLists, lists } = useAuth();
   const [open, setOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
   const [textColor, setTextColor] = useState('#fff');
 
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function CreateCardList({ list }) {
 
   useEffect(() => {
     const getTasks = async () => {
-      updateListTasks(
+      setTasks(
         (await getUserTasks(list.id)).filter((task) => task.isDone === false)
       );
     };
@@ -120,7 +121,7 @@ export function CreateCardList({ list }) {
             </StyledList>
           ) : (
             <Text h4 css={{ textAlign: 'center', color: `${textColor}` }}>
-              No tienes ninguna tarea en la lista!
+              ¡No tienes ninguna tarea en la lista!
             </Text>
           )}
         </Card.Body>

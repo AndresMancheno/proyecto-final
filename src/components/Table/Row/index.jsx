@@ -27,7 +27,6 @@ export const TableRow = ({
 
   const finishTask = async () => {
     await toggleTaskInDb(taskDescription, false, listID);
-    await getAllDeadLineTasks(userConf.email, updateWeekTasks);
     await getUserLists(userConf.email).then((lists) => updateLists(lists));
   };
 
@@ -40,7 +39,6 @@ export const TableRow = ({
 
   const removeTask = async () => {
     await removeTaskFromDb(taskDescription);
-    await getAllDeadLineTasks(userConf.email, updateWeekTasks);
     await getUserLists(userConf.email).then((lists) => updateLists(lists));
   };
 

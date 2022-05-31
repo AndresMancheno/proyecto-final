@@ -93,9 +93,9 @@ export default function EditList({ list, open, setOpen }) {
                 message: 'Campo requerido',
               },
               maxLength: {
-                value: 10,
+                value: 15,
                 message:
-                  'El nombre del tag tiene que tener menos de 10 letras :(',
+                  'El nombre del tag tiene que tener menos de 15 letras :(',
               },
             })}
           />

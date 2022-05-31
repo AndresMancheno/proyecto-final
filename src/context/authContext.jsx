@@ -21,7 +21,6 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
   const [lists, setLists] = useState([]);
-  const [tasks, setTasks] = useState([]);
   const [weekTasks, setWeekTasks] = useState([]);
   const [tags, setTags] = useState([]);
 
@@ -66,10 +65,6 @@ export function AuthProvider({ children }) {
     setWeekTasks(tasks);
   };
 
-  const updateListTasks = (tasks) => {
-    setTasks(tasks);
-  };
-
   const logout = () => signOut(auth);
 
   useEffect(() => {
@@ -102,11 +97,9 @@ export function AuthProvider({ children }) {
         updateLists,
         updateTags,
         updateWeekTasks,
-        updateListTasks,
         user,
         userConf,
         lists,
-        tasks,
         tags,
         weekTasks,
       }}

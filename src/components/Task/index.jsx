@@ -13,7 +13,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Task() {
   const navigate = useNavigate();
 
-  const { userConf, tasks, updateListTasks } = useAuth();
+  const { userConf, lists } = useAuth();
+  const [tasks, setTasks] = useState([]);
 
   const [showCompleted, setShowCompleted] = useState(false);
 
@@ -21,18 +22,18 @@ export default function Task() {
   const listName = window.localStorage.getItem('listName');
 
   useEffect(() => {
-    getUserTasks(listId).then((tasks) => updateListTasks(tasks));
-  }, [userConf.email]);
+    getUserTasks(listId).then((tasks) => setTasks(tasks));
+  }, [userConf.email, lists]);
 
   const createNewTask = (taskName) => {
     if (!tasks.find((t) => t.description === taskName)) {
-      updateListTasks([...tasks, { description: taskName, done: false }]);
+      setTasks([...tasks, { description: taskName, done: false }]);
     }
   };
 
   const toggleTask = async (task) => {
     await toggleTaskInDb(task.description, task.isDone, listId);
-    updateListTasks(
+    setTasks(
       tasks.map((t) =>
         t.description === task.description ? { ...t, isDone: !t.isDone } : t
       )
@@ -49,6 +50,7 @@ export default function Task() {
           toggleTask={toggleTask}
           listId={listId}
           taskDone={doneValue === true}
+          setTasks={setTasks}
         />
       ));
   };
@@ -75,14 +77,13 @@ export default function Task() {
       </ReturnButton>
       <TaskBanner listName={listName} taskItems={tasks} />
       <Spacer y={2} />
-      <TaskCreator callBack={createNewTask} />
+      <TaskCreator callBack={createNewTask} tasks={tasks} setTasks={setTasks} />
       <StyledTaskTable isDark={isDark}>
         <thead>
           <tr>
             <th>Descripción</th>
             <th>Dead Line</th>
             <th>Completada</th>
-            <th>Eliminar</th>
           </tr>
         </thead>
 

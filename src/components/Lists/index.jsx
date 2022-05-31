@@ -1,7 +1,7 @@
 import { Button, Text } from '@nextui-org/react';
 import AddList from 'components/Modal/List/Create';
 import { useAuth } from 'context/authContext';
-import { getUserLists } from 'db/lists';
+import { getAllDeadLineTasks, getUserLists } from 'db/lists';
 import { Add } from 'icons/Add';
 import { useEffect, useState } from 'react';
 import { CreateCardList } from './Create';
@@ -14,6 +14,7 @@ import { OrderByTag } from 'components/Tag';
 export default function List() {
   const { userConf, lists, updateLists, updateTags } = useAuth();
   const [open, setOpen] = useState(false);
+  const [weekTasks, setWeekTasks] = useState([]);
 
   useEffect(() => {
     getUserLists(userConf.email).then((lists) => updateLists(lists));
@@ -27,11 +28,16 @@ export default function List() {
     const userTags = lists.map((list) => list.tag);
     const filtredTags = new Set(userTags);
     updateTags([...filtredTags]);
+
+    async function getThisWeekTasks() {
+      await getAllDeadLineTasks(userConf.email, setWeekTasks);
+    }
+    getThisWeekTasks();
   }, [lists]);
 
   return (
     <>
-      <div>
+      <div style={{ marginBottom: '2rem' }}>
         <motion.div animate={{ y: 10 }} transition={{ duration: 0.5 }}>
           <GreetingUser h2>Bienvenid@ {userConf.name}</GreetingUser>
         </motion.div>
@@ -59,12 +65,12 @@ export default function List() {
             <TitleList>
               <Text h3> Tus tareas para esta semana </Text>
             </TitleList>
-            <TaskTable />
+            <TaskTable weekTasks={weekTasks} setWeekTasks={setWeekTasks} />
 
             <TitleList>
               <Text h3>Listas ordenadas por el tag</Text>
             </TitleList>
-            <OrderByTag />
+            <OrderByTag setWeekTasks={setWeekTasks} />
           </>
         ) : (
           <TitleList>
