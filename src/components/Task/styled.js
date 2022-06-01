@@ -1,17 +1,25 @@
 import { Button, styled } from '@nextui-org/react';
 
 export const StyledTaskTable = styled('table', {
-  width: '80%',
+  width: '60%',
   textAlign: 'center',
+  margin: '0 auto',
   marginTop: '2rem',
-  marginBottom: '4rem',
 
   padding: '10px',
+
+  '@md': {
+    width: '50%',
+    margin: '0 auto',
+    marginTop: '2rem',
+  },
 
   '@xsMax': {
     display: 'block',
     margin: '0 auto',
+    marginTop: '2rem',
     overflowX: 'scroll',
+    width: '80%',
   },
   variants: {
     isDark: {
